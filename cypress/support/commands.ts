@@ -363,3 +363,11 @@ Cypress.Commands.add("loginByGoogleApi", () => {
     });
   });
 });
+
+Cypress.Commands.add("login", () => {
+  cy.log("Logging in as Katharina")
+  cy.get('#username').click().type('Katharina_Bernier')
+  cy.get('#password').click().type('s3cret')
+  cy.contains('.MuiButton-label','Sign In').click()
+  cy.get('[data-test="sidenav-username"]').should('contain','Katharina_Bernier')
+})
