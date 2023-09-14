@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="24.513" tests="4" failures="1" skipped="1">
+  <testsuite name="Root Suite" timestamp="2023-09-14T13:21:18" tests="0" file="cypress\tests\v2\api\test1.spec.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="api test1" timestamp="2023-09-14T13:21:18" tests="4" time="24.499" failures="1">
+    <testcase name="api test1 Test1 (intercept API) -&gt; send money" time="0.000" classname="Test1 (intercept API) -&gt; send money">
+      <failure message="Timed out retrying after 4000ms: Expected to find element: `[class=&quot;MuiPaper-root makeStyles-paper-54 MuiPaper-elevation0 MuiPaper-rounded&quot;]`, but never found it." type="AssertionError"><![CDATA[AssertionError: Timed out retrying after 4000ms: Expected to find element: `[class="MuiPaper-root makeStyles-paper-54 MuiPaper-elevation0 MuiPaper-rounded"]`, but never found it.
+    at Context.eval (webpack://cypress-realworld-app/./cypress/tests/v2/api/test1.spec.js:15:11)]]></failure>
+    </testcase>
+    <testcase name="api test1 Test3 (intercept API) -&gt; router matcher" time="6.170" classname="Test3 (intercept API) -&gt; router matcher">
+    </testcase>
+    <testcase name="api test1 Test4 (request API) -&gt; send request" time="2.271" classname="Test4 (request API) -&gt; send request">
+    </testcase>
+  </testsuite>
+</testsuites>

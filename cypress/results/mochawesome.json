@@ -1,0 +1,169 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 2,
+    "pending": 1,
+    "failures": 0,
+    "start": "2023-09-14T13:21:18.985Z",
+    "end": "2023-09-14T13:21:43.498Z",
+    "duration": 24513,
+    "testsRegistered": 4,
+    "passPercent": 66.66666666666666,
+    "pendingPercent": 25,
+    "other": 1,
+    "hasOther": true,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "e149e3b1-a7a0-42f5-bc88-4ff73e8f2bbd",
+      "title": "",
+      "fullFile": "cypress\\tests\\v2\\api\\test1.spec.js",
+      "file": "cypress\\tests\\v2\\api\\test1.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "821f22eb-19f7-46b6-ba2b-31a5f602fd65",
+          "title": "api test1",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Test1 (intercept API) -> send money",
+              "fullTitle": "api test1 Test1 (intercept API) -> send money",
+              "timedOut": null,
+              "duration": 15217,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const pay = 122;\ncy.intercept('POST', 'http://localhost:3001/transactions').as('postTransaction');\ncy.contains('.MuiButton-label', 'New').click();\ncy.get('[class=\"MuiPaper-root makeStyles-paper-54 MuiPaper-elevation0 MuiPaper-rounded\"]').then(search => {\n  cy.wrap(search).find('#user-list-search-input').type('devon');\n  cy.wrap(search).find('[data-test=\"users-list\"]').each(item => {\n    cy.wrap(item).contains('span', 'Devon Becker').click();\n    cy.get('[class=\"MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center\"]').find('[class=\"MuiTypography-root MuiTypography-h6 MuiTypography-colorPrimary MuiTypography-gutterBottom\"]').invoke('prop', 'innerText').should('contain', 'Devon Becker');\n  });\n  cy.get('#amount').type(pay);\n  cy.get('#transaction-create-description-input').type('test_note');\n  cy.contains('[data-test=\"transaction-create-submit-payment\"]', 'Pay').click();\n  cy.get('[class=\"MuiBox-root MuiBox-root-67\"]').find('[class=\"MuiTypography-root MuiTypography-h6 MuiTypography-colorPrimary MuiTypography-gutterBottom\"]').invoke('prop', 'innerText').should('contain', 'Paid $' + pay.toFixed(2) + ' for test_note');\n});\ncy.wait('@postTransaction');\ncy.get('@postTransaction').then(pay, xhr => {\n  console.log(xhr);\n  expect(xhr.response.statusCode).to.equal(200);\n  expect(xhr.response.body.transaction.description).to.equal('test_note');\n  expect(xhr.response.body.transaction.amount / 100).to.equal(pay);\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[class=\"MuiPaper-root makeStyles-paper-54 MuiPaper-elevation0 MuiPaper-rounded\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[class=\"MuiPaper-root makeStyles-paper-54 MuiPaper-elevation0 MuiPaper-rounded\"]`, but never found it.\n    at Context.eval (webpack://cypress-realworld-app/./cypress/tests/v2/api/test1.spec.js:15:11)",
+                "diff": null
+              },
+              "uuid": "a15a8f32-ab99-4af7-a936-9c5bdc1a4222",
+              "parentUUID": "821f22eb-19f7-46b6-ba2b-31a5f602fd65",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test2 (intercept API) -> mock response",
+              "fullTitle": "api test1 Test2 (intercept API) -> mock response",
+              "timedOut": null,
+              "duration": 0,
+              "state": "pending",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": true,
+              "context": null,
+              "code": "cy.wait('@getTransaction');\ncy.get('@getTransaction').then(xhr => {\n  console.log(xhr);\n  console.log(convertAmount(xhr.response.body.results[0].amount));\n});",
+              "err": {},
+              "uuid": "08d10a70-0c5a-4126-aa13-0607b65c0ea7",
+              "parentUUID": "821f22eb-19f7-46b6-ba2b-31a5f602fd65",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test3 (intercept API) -> router matcher",
+              "fullTitle": "api test1 Test3 (intercept API) -> router matcher",
+              "timedOut": null,
+              "duration": 6170,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const description = 'test_note';\nconst pay = '102';\ncy.intercept('POST', '**/transactions', req => {\n  req.reply(res => {\n    expect(res.body.transaction.description).to.equal(description);\n    req.body.description = 'TEST1234';\n    res.body.transaction.description = \"TEST123\";\n  });\n}).as('postTransaction');\ncy.contains('.MuiButton-label', 'New').click();\ncy.get('[data-test=\"main\"]').find('.MuiPaper-rounded').then(search => {\n  cy.wrap(search).find('#user-list-search-input').type('devon');\n  cy.wrap(search).find('[data-test=\"users-list\"]').each(item => {\n    cy.wrap(item).contains('span', 'Devon Becker').click();\n    cy.get('[class=\"MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center\"]').find('[class=\"MuiTypography-root MuiTypography-h6 MuiTypography-colorPrimary MuiTypography-gutterBottom\"]').invoke('prop', 'innerText').should('contain', 'Devon Becker');\n  });\n  cy.get('#amount').type(pay);\n  cy.get('#transaction-create-description-input').type(description);\n  cy.contains('[data-test=\"transaction-create-submit-payment\"]', 'Pay').click();\n  cy.wait('@postTransaction');\n  cy.get('@postTransaction').then(xhr => {\n    cy.get('main').then(row => {\n      cy.wrap(row).find('div.MuiPaper-rounded').find('h2[class=\"MuiTypography-root MuiTypography-h6 MuiTypography-colorPrimary MuiTypography-gutterBottom\"]').eq(1).invoke('prop', 'innerText').should('contain', 'Paid $' + convertAmount(xhr.response.body.transaction.amount) + ' for ' + description);\n    });\n    console.log(xhr);\n  });\n});",
+              "err": {},
+              "uuid": "10b1b6f3-2aa3-4eaa-8654-3949d89e464e",
+              "parentUUID": "821f22eb-19f7-46b6-ba2b-31a5f602fd65",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Test4 (request API) -> send request",
+              "fullTitle": "api test1 Test4 (request API) -> send request",
+              "timedOut": null,
+              "duration": 2271,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const transId = '183VHWyuQMS';\nconst comment = 'comment12';\ncy.log('add like');\ncy.request({\n  url: 'http://localhost:3001/likes/' + transId,\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json, text/plain, */*'\n  },\n  body: `{\"transactionId\":\"183VHWyuQMS\"}`\n}).then(response => {\n  expect(response.status).to.equal(200);\n});\ncy.log('add comment');\ncy.request({\n  url: 'http://localhost:3001/comments/' + transId,\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json, text/plain, */*'\n  },\n  body: `{\"transactionId\":\"183VHWyuQMS\",\"content\":\"${comment}\"}`\n}).then(response => {\n  expect(response.status).to.equal(200);\n});\ncy.request({\n  url: 'http://localhost:3001/comments/' + transId,\n  method: 'GET',\n  headers: {\n    'Content-Type': 'application/json',\n    'Accept': 'application/json, text/plain, */*'\n  }\n}).then(response => {\n  expect(response.status).to.equal(200);\n  //console.log(response)\n  const arr = response.body.comments;\n  expect(arr[arr.length - 1].content).to.equal(comment);\n});",
+              "err": {},
+              "uuid": "7dc7f0ea-cee5-4e16-90d5-162cfa47f563",
+              "parentUUID": "821f22eb-19f7-46b6-ba2b-31a5f602fd65",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "10b1b6f3-2aa3-4eaa-8654-3949d89e464e",
+            "7dc7f0ea-cee5-4e16-90d5-162cfa47f563"
+          ],
+          "failures": [
+            "a15a8f32-ab99-4af7-a936-9c5bdc1a4222"
+          ],
+          "pending": [
+            "08d10a70-0c5a-4126-aa13-0607b65c0ea7"
+          ],
+          "skipped": [],
+          "duration": 23658,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results",
+        "overwrite": "false",
+        "html": "true",
+        "json": "true"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

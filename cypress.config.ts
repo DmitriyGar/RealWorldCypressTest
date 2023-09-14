@@ -4,6 +4,10 @@ export default defineConfig({
   projectId: '7s5okt',
   viewportHeight: 1000,
   viewportWidth: 1280,
+  reporter: 'cypress-multi-reporters',
+  reporterOptions: {
+  configFile: 'reporter-config.json'
+  },
   retries: {
     runMode: 0,
     openMode: 0,
