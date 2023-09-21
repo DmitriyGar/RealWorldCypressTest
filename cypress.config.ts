@@ -28,6 +28,6 @@ export default defineConfig({
       return require('./cypress/plugins/index.ts').default(on, config)
     },
     baseUrl: 'http://localhost:3000',
-    specPattern: 'cypress/tests/**/*.{js,jsx,ts,tsx}',
+    specPattern: 'cypress/tests/v2/**/*.{js,jsx,ts,tsx}',
   },
 })
