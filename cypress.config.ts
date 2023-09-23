@@ -27,6 +27,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       return require('./cypress/plugins/index.ts').default(on, config)
     },
+    defaultCommandTimeout: 5000,
     baseUrl: 'http://localhost:3000',
     specPattern: 'cypress/tests/v2/**/*.{js,jsx,ts,tsx}',
   },

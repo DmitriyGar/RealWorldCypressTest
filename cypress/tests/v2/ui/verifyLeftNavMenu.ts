@@ -28,7 +28,7 @@ describe('Left navigation menu verification', () => {
     })
 
     it.only('Verify UI elements on left navigation menu', ()=>{
-        leftNavigationMenu.checkUIElementsOnLeftNavMenu()
+        leftNavigationMenu.checkUIElementsPresenceOnLeftNavMenu()
     })
     
 after('Postconditions',()=>{

@@ -49,6 +49,7 @@
     "shortid": "2.2.16",
     "uuid": "8.3.2",
     "xstate": "4.31.0",
+    "yarn": "^1.22.19",
     "yup": "0.32.11"
   },
   "devDependencies": {
@@ -93,7 +94,7 @@
     "concurrently": "7.1.0",
     "cors": "2.8.5",
     "cross-env": "7.0.3",
-    "cypress": "13.1.0",
+    "cypress": "^13.1.0",
     "cypress-mochawesome-reporter": "^3.6.0",
     "cypress-multi-reporters": "^1.6.3",
     "dotenv": "16.0.0",
@@ -152,12 +153,11 @@
     "list:dev:users": "cat data/database.json | json -a users | json -a id username",
     "types": "tsc --noEmit",
     "precypress:open": "yarn predev:cognito:ci",
-    
     "cypress:open": "cypress open",
     "cypress:open:mobile": "cypress open --config viewportWidth=375,viewportHeight=667",
     "cypress:run": "npm run prereport && cypress run",
     "cypress:run:mobile": "cypress run --config viewportWidth=375,viewportHeight=667",
-    "cypress:test":"cypress run --spec \"cypress/tests/v2/api/*\"",
+    "cypress:test": "cypress run --spec \"cypress/tests/v2/api/*\"",
     "cypress:e2e": "npm run delete:reports && npm run cypress:test && npm run cypress:report",
     "cypress:report": "npm run junit:merge && npm run mochawesome:merge",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
