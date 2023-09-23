@@ -103,9 +103,7 @@ export class NavigationMenu {
         cy.get('#root').find('h1').should('contain', 'Sign in').then(check => {
             expect(localStorage.getItem('authState')).to.contain('\"value\":\"unauthorized\"')
         })
-
     }
-
 }
 
 
