@@ -90,13 +90,13 @@ describe('api test1', () => {
 
     it('Test4 (request API) -> send request', () => {
 
-        const transId='183VHWyuQMS'
-        const comment='comment12'
-        
+        const transId = '183VHWyuQMS'
+        const comment = 'comment12'
+
         cy.log('add like')
         cy.request({
 
-            url: 'http://localhost:3001/likes/'+transId,
+            url: 'http://localhost:3001/likes/' + transId,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ describe('api test1', () => {
 
         cy.log('add comment')
         cy.request({
-            url: 'http://localhost:3001/comments/'+transId,
+            url: 'http://localhost:3001/comments/' + transId,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ describe('api test1', () => {
         })
 
         cy.request({
-            url: 'http://localhost:3001/comments/'+transId,
+            url: 'http://localhost:3001/comments/' + transId,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -129,16 +129,18 @@ describe('api test1', () => {
             }
         }).then(response => {
             expect(response.status).to.equal(200)
-           //console.log(response)
-            const arr=response.body.comments
-            expect(arr[arr.length-1].content).to.equal(comment)
+            //console.log(response)
+            const arr = response.body.comments
+            expect(arr[arr.length - 1].content).to.equal(comment)
 
         })
     })
 })
 
-    var convertAmount = function (amount) {
-        var strArr = amount.toString().split('')
+var convertAmount = function (amount) {
+    var strArr = amount.toString().split('')
+    if (strArr.length >= 3) {
         strArr[strArr.length - 3] = strArr[strArr.length - 3] + '.'
-        return strArr.join('')
     }
+    return strArr.join('')
+}
