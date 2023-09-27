@@ -1,4 +1,4 @@
-import { Pages } from "../../../support/pageObjects/pages"
+import { Pages } from "../../../support/pageObjects/Pages"
 
 let pages = new Pages();
 

@@ -1,7 +1,6 @@
 
-import { Pages } from "./Pages"
-
 export class HomePage {
+    
    private readonly getElementsHomePage = {
             everyoneTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(0).find('.MuiTab-wrapper'),
             friendsTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(1).find('.MuiTab-wrapper'),
@@ -12,27 +11,42 @@ export class HomePage {
             .find('p span').eq(0),
             actionLabelTransaction: (n:number)=> cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
             .find('p span').eq(1),
-            nameGetTransaction: (n:number)=> cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
+            nameReceivedTransaction: (n:number)=> cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
             .find('p span').eq(2),
             paymentLabelTransaction: (n:number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
             .find('p span').eq(0).parent().parent().find('p').eq(1),
-            //paymentPriceTransaction: (n:number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
-            //.find('li div div div.MuiGrid-grid-sm-true div span[data-test]').eq(3)
-            paymentPriceTransaction: (id:number) => cy.get(`[data-test="transaction-amount-${id}"]`)
-            
+            paymentPriceTransaction: (n:number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
+            .find('li div div div.MuiGrid-grid-sm-true div span[data-test]').eq(3),
+            paymentPriceTransactionById: (id:number) => cy.get(`[data-test="transaction-amount-${id}"]`),
+            nameSentTransactionById: (id:number) => cy.get(`[data-test="transaction-sender-${id}"]`),
+            nameReceivedTransactionById: (id:number) => cy.get(`[data-test="transaction-receiver-${id}"]`),
+            paymentLabelTransactionById: (id:number) => cy.get(`[data-test="transaction-sender-${id}"]`).parent().parent()
+            .contains('p',new RegExp(`${['Payment', 'Request'].join('|')}`, 'g'))
     }
 
     getTransaction(n:number){
         this.getElementsHomePage.nameSentTransaction(n).should('contain','Kaylin Homenick');
         this.getElementsHomePage.actionLabelTransaction(n).should('contain','paid');
-        this.getElementsHomePage.nameGetTransaction(n).should('contain','Arely Kertzmann');
+        this.getElementsHomePage.nameReceivedTransaction(n).should('contain','Arely Kertzmann');
         this.getElementsHomePage.paymentLabelTransaction(n).should('contain','Payment');
         this.getElementsHomePage.paymentPriceTransaction(n).invoke('prop', 'innerText').should('equal','-$80.31');
     }
 
-    getPaymentPriceTransactionValue(n:number){
-       return this.getElementsHomePage.paymentPriceTransaction(n)
+    getPaymentLabelTransactionById(id:number){
+        return this.getElementsHomePage.paymentLabelTransactionById(id)
+     }
+
+    getNameSentTransactionById(id:number){
+       return this.getElementsHomePage.nameSentTransactionById(id)
     }
+
+    getNameReceivedTransactionById(id:number){
+        return this.getElementsHomePage.nameReceivedTransactionById(id)
+     }
+
+    getPaymentPriceTransactionValueById(id:number){
+        return this.getElementsHomePage.paymentPriceTransactionById(id)
+     }
 
     getSelectedTab(){
         cy.log('Determine selected tab')
