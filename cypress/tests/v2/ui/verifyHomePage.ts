@@ -1,14 +1,44 @@
 import { Pages } from "../../../support/pageObjects/Pages"
 import { negativeOrPositiveAmountWrapper } from "../../../support/helpers/HelpMethods";
 
+
+
 let pages = new Pages();
 
 describe('Verify Home page', () => {
+
     beforeEach('Preconditions', () => {
         cy.visit('/')
         cy.loginUI()
     })
-    it('Verify UI elements presence on Home Page', () => {
+
+    var checkTransactionsUImatchAPI2 = function (page: number = 1) {
+        
+        let shift = 0;
+   /*
+        const fs = require('fs');
+        let str=fs.writeFileSync("./tests/v2/ui/text1.txt","hello");
+        console.log(str)*/
+       
+     /*    while (shift<3712){
+            cy.get('[aria-label="grid"]').focus().scrollTo('0', shift)
+
+            
+
+           const element = document.querySelector('div.ReactVirtualized__Grid__innerScrollContainer')!
+            const style=element.getAttribute("style")
+           
+            //const style=getComputedStyle(element)
+            console.log(style)
+
+            cy.get('[data-test="transaction-list"] [role="grid"] [role="rowgroup"]').find(`[style="height: 128px; left: 0px; position: absolute; top: ${shift}px; width: 100%;"]`).find('li div div div.MuiGrid-grid-sm-true div:nth-child(2) span.MuiTypography-root')
+        shift=shift+128;
+        }*/
+    }
+
+
+
+    it.only('Verify UI elements presence on Home Page', () => {
         pages.navigationMenu.openHomePage();
         pages.homePage.getSelectedTab().should('contain', 'Everyone')
         pages.homePage.getEveryoneTab().should('be.visible')
@@ -23,7 +53,7 @@ describe('Verify Home page', () => {
         pages.homePage.getAmountSlider().should('contain', 'Amount:')
     })
 
-    it.only('Verify transactions on Home Page match API', () => {
+    it('Verify transactions on EVERYONE tab of Home Page match API', () => {
 
         var checkTransactionsUImatchAPI = function (page: number = 1) {
             let parametr: string = ''
@@ -60,7 +90,17 @@ describe('Verify Home page', () => {
         }
 
         pages.navigationMenu.openHomePage();
+  
         checkTransactionsUImatchAPI();
+    })
+
+
+    it.only('Verify transactions on MINE tab of Home Page match API', () => {
+
+        pages.navigationMenu.openHomePage();
+        //pages.homePage.getMineTab().click();
+    
+        checkTransactionsUImatchAPI2();
     })
 
 })

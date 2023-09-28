@@ -1,20 +1,26 @@
-
-export class SignInPage {
+export class SignUpPage {
 
     private getUIelements = {
         logoIcon: () => cy.get('main div div svg'),
-        signInLabel: () => cy.get('main div h1'),
+        signUpLabel: () => cy.get('main div h1'),
+        firstNameLabel: () => cy.get('#username-label'),
+        firstNameField: () => cy.get('#username'),
+        firstNameError: () => cy.get('#username-helper-text'),
+        lastNameLabel: () => cy.get('#username-label'),
+        lastNameField: () => cy.get('#username'),
+        lastNameError: () => cy.get('#username-helper-text'),
         usernameLabel: () => cy.get('#username-label'),
         usernameField: () => cy.get('#username'),
         usernameError: () => cy.get('#username-helper-text'),
         passwordLabel: () => cy.get('#password-label'),
         passwordField: () => cy.get('#password'),
         passwordError: () => cy.get('#password-helper-text'),
-        rememberMeCheckbox: () => cy.get('[data-test="signin-remember-me"] [type="checkbox"]'),
-        rememberMeLabel: () => cy.get('[data-test="signin-remember-me"]').find('span').last(),
-        signInButton: () => cy.get('button[data-test="signin-submit"]'),
-        donthaveAnAccountLink: () => cy.get('[data-test="signup"]'),
-        signinError: () => cy.get('[data-test="signin-error"]'),
+        confirmPasswordLabel: () => cy.get('#password-label'),
+        confirmPasswordField: () => cy.get('#password'),
+        confirmPasswordError: () => cy.get('#password-helper-text'),
+        signUpButton: () => cy.get('form button[data-test="signup-submit"]'),
+        haveAnAccountLink: () => cy.get('form div div a'),
+        signUpError: () => cy.get('[data-test="signup-error"]'),
         builtByLabel: () => cy.get('[rel="noopener noreferrer"]').parent(),
         builtByCypressLogo: () => cy.get('[rel="noopener noreferrer"]')
     }
@@ -23,8 +29,8 @@ export class SignInPage {
         return this.getUIelements.logoIcon()
     }
 
-    getSignInLabel() {
-        return this.getUIelements.signInLabel()
+    getSignUpLabel() {
+        return this.getUIelements.signUpLabel()
     }
 
     getUsernameLabel() {
@@ -51,21 +57,12 @@ export class SignInPage {
         return this.getUIelements.passwordField()
     }
 
-
-    getRememberMeCheckbox() {
-        return this.getUIelements.rememberMeCheckbox()
+    getHaveAnAccountLink() {
+        return this.getUIelements.haveAnAccountLink()
     }
 
-    getRememberMeLabel() {
-        return this.getUIelements.rememberMeLabel()
-    }
-
-    getDonthaveAnAccountLink() {
-        return this.getUIelements.donthaveAnAccountLink()
-    }
-
-    getSigninError() {
-        return this.getUIelements.signinError()
+    getSignUpError() {
+        return this.getUIelements.signUpError()
     }
 
     getBuiltByLabel() {
@@ -74,8 +71,7 @@ export class SignInPage {
     getBuiltByCypressLogo() {
         return this.getUIelements.builtByCypressLogo()
     }
-    getSignInButton() {
-        return this.getUIelements.signInButton()
+    getSignUpButton() {
+        return this.getUIelements.signUpButton()
     }
-
 }

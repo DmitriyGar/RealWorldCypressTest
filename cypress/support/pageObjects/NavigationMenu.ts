@@ -16,19 +16,58 @@ export class NavigationMenu {
         logoutItem: () => cy.contains('span', 'Logout')
     }
 
-    getElementsLeftNavMenu(){
-    return this.elementsLeftNavMenu
+    getProfieIcon() {
+        return this.elementsLeftNavMenu.profieIcon()
     }
 
+    getFirstName() {
+        return this.elementsLeftNavMenu.firstName()
+    }
+
+    getLastName() {
+        return this.elementsLeftNavMenu.lastName()
+    }
+
+    getUserName() {
+        return this.elementsLeftNavMenu.userName()
+    }
+
+    getAmount() {
+        return this.elementsLeftNavMenu.amount()
+    }
+
+    getAccBalanceLabel() {
+        return this.elementsLeftNavMenu.accBalanceLabel()
+    }
+
+    getMyAccountPageItem() {
+        return this.elementsLeftNavMenu.myAccountPageItem()
+    }
+
+    getBankAccountsPageItem() {
+        return this.elementsLeftNavMenu.bankAccountsPageItem()
+    }
+
+    getNotificationPageItem() {
+        return this.elementsLeftNavMenu.notificationPageItem()
+    }
+
+    getHomePageItem() {
+        return this.elementsLeftNavMenu.homePageItem()
+    }
+
+getLogoutItem() {
+        return this.elementsLeftNavMenu.logoutItem()
+    }
     getHideShowLeftNavMenuButton() {
         cy.log('Get hide/show left nav menu button');
-        return  this.elementsLeftNavMenu.hideShowButton()
+        return this.elementsLeftNavMenu.hideShowButton()
     }
 
-    checkLeftNavMenuState (){
+    checkLeftNavMenuState() {
         cy.log('Chch if left nav menu hidden');
-        cy.get('header').invoke('attr','class').then(attr =>{
-            if ((attr+'').includes('makeStyles-appBarShift')) {
+        cy.get('header').invoke('attr', 'class').then(attr => {
+            if ((attr + '').includes('makeStyles-appBarShift')) {
                 this.elementsLeftNavMenu.userName().should('be.visible')
                 this.elementsLeftNavMenu.firstName().should('be.visible')
                 this.elementsLeftNavMenu.lastName().should('be.visible')
