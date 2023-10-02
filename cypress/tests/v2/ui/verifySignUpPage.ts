@@ -123,12 +123,19 @@ describe('Verify Sign Up page:', () => {
         pages.signUpPage.getSignUpButton().should('be.enabled')
     })
 
-    it.only('Verify user can sign up to the app', () => {
-        pages.signUpPage.getFirstNameField().type('testf1')
-        pages.signUpPage.getLastNameField().type('testl1')
-        pages.signUpPage.getUsernameField().type('testu1')
-        pages.signUpPage.getPasswordField().type('test1')
-        pages.signUpPage.getConfirmPasswordField().type('test1')
+    it('Verify user can sign up to the app', () => {
+        pages.signUpPage.getFirstNameField().type('testf')
+        pages.signUpPage.getLastNameField().type('testl')
+        pages.signUpPage.getUsernameField().type('testu')
+        pages.signUpPage.getPasswordField().type('test')
+        pages.signUpPage.getConfirmPasswordField().type('test')
         pages.signUpPage.getSignUpButton().should('be.enabled').click()
+        cy.url().should('contain','/signin')
+        pages.signInPage.getUsernameField().type('testu1')
+        pages.signInPage.getPasswordField().type('test1')
+        pages.signInPage.getSignInButton().click().wait(500)
+        pages.commonElements.getDialogWindowSection().should('be.visible')
+        pages.commonElements.getOnboardingTitle().should('contain','Get Started with Real World App')
+
     })
 })

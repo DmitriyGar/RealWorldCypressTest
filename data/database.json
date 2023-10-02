@@ -74,6 +74,94 @@
       "balance": 75369,
       "createdAt": "2020-02-11T21:26:46.510Z",
       "modifiedAt": "2020-05-21T15:15:33.944Z"
+    },
+    {
+      "id": "BDMhVs0Ej",
+      "uuid": "f81a345d-829d-4334-a13f-00d4dbaf4eb0",
+      "firstName": "qwere",
+      "lastName": "qwere",
+      "username": "qwere",
+      "password": "$2a$10$SGq3mdZzpdnPmoH/VlvBh..PLypldQ/8b44rL5hZ65YmRGt/MqUvC",
+      "balance": 0,
+      "createdAt": "2023-10-02T11:06:14.181Z",
+      "modifiedAt": "2023-10-02T11:06:14.181Z"
+    },
+    {
+      "id": "uxJFDbzUS",
+      "uuid": "6e40b531-1df1-47ef-9869-801959f9bf2d",
+      "firstName": "testf1",
+      "lastName": "testl1",
+      "username": "testu1",
+      "password": "$2a$10$rfksoQ1MOhyGiLdhUIfeyuHrYa2rsUY79qEnqP/a46Cz1SqPmkFra",
+      "balance": 0,
+      "createdAt": "2023-10-02T11:08:22.383Z",
+      "modifiedAt": "2023-10-02T11:08:22.383Z"
+    },
+    {
+      "id": "71kT659Hw",
+      "uuid": "98856e53-1636-40ad-80a7-2b52434b6c6d",
+      "firstName": "testf1",
+      "lastName": "testl1",
+      "username": "testu1",
+      "password": "$2a$10$vG6skjiT4k7V77N.oUwhCO18ZdubSknsO2a.xd.7Odf.9540WlInG",
+      "balance": 0,
+      "createdAt": "2023-10-02T11:08:47.823Z",
+      "modifiedAt": "2023-10-02T11:08:47.823Z"
+    },
+    {
+      "id": "btNfO2WvK",
+      "uuid": "0344d6fb-e589-4dfa-ac03-d0dcecf2fbd3",
+      "firstName": "testf1",
+      "lastName": "testl1",
+      "username": "testu1",
+      "password": "$2a$10$3ojihrAsBuWoJqzYgIcgPO7MOu.HKqSI30Ly3pS79Jy627fRb6h8K",
+      "balance": 0,
+      "createdAt": "2023-10-02T11:24:52.537Z",
+      "modifiedAt": "2023-10-02T11:24:52.537Z"
+    },
+    {
+      "id": "Ait6DwByq",
+      "uuid": "cb085956-588f-41bf-9e38-582424d26a6f",
+      "firstName": "testf1",
+      "lastName": "testl1",
+      "username": "testu1",
+      "password": "$2a$10$lSxiwI2i6HlINfviwlgzU.AAooD4/heRwHFOT9aV8zrZKSHIVY5Fu",
+      "balance": 0,
+      "createdAt": "2023-10-02T11:26:33.569Z",
+      "modifiedAt": "2023-10-02T11:26:33.569Z"
+    },
+    {
+      "id": "1kMixnPsx",
+      "uuid": "7ea8b1fa-5391-491f-8641-035607e44acb",
+      "firstName": "testf1",
+      "lastName": "testl1",
+      "username": "testu1",
+      "password": "$2a$10$Uzu7dEe7Ul8ZgkE70WXbj.viiOnk8QiEuz/JNzVquf9VKdJdofvX2",
+      "balance": 0,
+      "createdAt": "2023-10-02T11:33:12.442Z",
+      "modifiedAt": "2023-10-02T11:33:12.442Z"
+    },
+    {
+      "id": "RASXaiTDF",
+      "uuid": "b03f4f46-e9d9-4103-ae36-5411ac6124e9",
+      "firstName": "testf1",
+      "lastName": "testl1",
+      "username": "testu1",
+      "password": "$2a$10$1R2.GmhJW0y6AS0fyHoYyeb/XFtGfUA8WunYKxCRJqaFuay9khDpy",
+      "balance": 0,
+      "createdAt": "2023-10-02T11:35:21.472Z",
+      "modifiedAt": "2023-10-02T11:35:21.472Z"
+    },
+    {
+      "id": "KtRoghVZw",
+      "uuid": "15f5e0e8-6947-47e9-b485-5283ebe03da1",
+      "firstName": "testf1",
+      "lastName": "testl1",
+      "username": "testu1",
+      "password": "$2a$10$MnageEKhEcbuuMAWGc2lwOa/9aLNI4niB0G5kiwK26wsLtAaGmsPW",
+      "balance": 0,
+      "createdAt": "2023-10-02T11:38:06.933Z",
+      "modifiedAt": "2023-10-02T11:38:06.933Z"
     }
   ],
   "contacts": [
