@@ -15,7 +15,6 @@ describe('Left navigation menu verification', () => {
         pages.navigationMenu.checkLeftNavMenuState()
         pages.navigationMenu.getHideShowLeftNavMenuButton().click()
         pages.navigationMenu.checkLeftNavMenuState()
-
     })
 
     it('Verify user can navigate to all pages via left nav menu', () => {
@@ -34,14 +33,14 @@ describe('Left navigation menu verification', () => {
         cy.url().should('contain', '/notifications')
     })
 
-    it('Verify UI elements on left navigation menu', () => {
-        pages.navigationMenu.getElementsLeftNavMenu().profieIcon()
+    it('Verify UI elements presence on left navigation menu', () => {
+        pages.navigationMenu.getProfieIcon()
             .should('have.attr', 'src', 'https://cypress-realworld-app-svgs.s3.amazonaws.com/t45AiwidW.svg')
-            pages.navigationMenu.getElementsLeftNavMenu().userName().should('contain', 'Katharina_Bernier')
-            pages.navigationMenu.getElementsLeftNavMenu().firstName().should('contain', 'Edgar')
-            pages.navigationMenu.getElementsLeftNavMenu().lastName().should('contain', 'J')
-            pages.navigationMenu.getElementsLeftNavMenu().amount().should('not.be.empty')
-            pages.navigationMenu.getElementsLeftNavMenu().accBalanceLabel()
+            pages.navigationMenu.getUserName().should('contain', 'Katharina_Bernier')
+            pages.navigationMenu.getFirstName().should('contain', 'Edgar')
+            pages.navigationMenu.getLastName().should('contain', 'J')
+            pages.navigationMenu.getAmount().should('not.be.empty')
+            pages.navigationMenu.getAccBalanceLabel()
             .should('contain', 'Account Balance')
 
     })

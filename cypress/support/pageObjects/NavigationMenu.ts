@@ -56,7 +56,7 @@ export class NavigationMenu {
         return this.elementsLeftNavMenu.homePageItem()
     }
 
-getLogoutItem() {
+    getLogoutItem() {
         return this.elementsLeftNavMenu.logoutItem()
     }
     getHideShowLeftNavMenuButton() {
@@ -65,7 +65,7 @@ getLogoutItem() {
     }
 
     checkLeftNavMenuState() {
-        cy.log('Chch if left nav menu hidden');
+        cy.log('Check if left nav menu hidden');
         cy.get('header').invoke('attr', 'class').then(attr => {
             if ((attr + '').includes('makeStyles-appBarShift')) {
                 this.elementsLeftNavMenu.userName().should('be.visible')
