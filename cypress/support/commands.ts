@@ -4,6 +4,7 @@
 import { pick } from "lodash/fp";
 import { format as formatDate } from "date-fns";
 import { isMobile } from "./utils";
+import testData from "../support/testData/testDataExistingUser.json"
 
 // Import Cypress Percy plugin command (https://docs.percy.io/docs/cypress)
 import "@percy/cypress";
@@ -382,12 +383,12 @@ Cypress.Commands.add("loginByApi", (username:string='Katharina_Bernier',password
   })
 })
 
-Cypress.Commands.add("loginUI", () => {
+Cypress.Commands.add("loginUI", (username:string=testData.userName, password:string=testData.password) => {
   cy.log("Logging in as Katharina")
-  cy.get('#username').click().type('Katharina_Bernier')
-  cy.get('#password').click().type('s3cret')
+  cy.get('#username').click().type(username)
+  cy.get('#password').click().type(password)
   cy.contains('.MuiButton-label', 'Sign In').click()
-  cy.get('[data-test="sidenav-username"]').should('contain', 'Katharina_Bernier').then( check =>{
+  cy.get('[data-test="sidenav-username"]').should('contain', username).then( check =>{
     expect(localStorage.getItem('authState')).to.contain('\"value\":\"authorized\"')
 
 })

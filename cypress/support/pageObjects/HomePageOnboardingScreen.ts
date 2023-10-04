@@ -1,12 +1,12 @@
 
-export class CommonElements {
+export class HomePageOnboardingScreen {
     private elementsOnboardingWindow = {
         // Onboarding window appears after first logging into the app
         dialogWindowSection: () => cy.get('div[role="dialog"]'),
         onboardingTitle: () => cy.get('[data-test="user-onboarding-dialog-title"] h2'),
         onboardingLogo: () => cy.get('[data-test="user-onboarding-dialog-content"] div svg'),
         onboardingText: () => cy.get('[data-test="user-onboarding-dialog-content"] div p'),
-        onboardingNextButton: () => cy.get('[data-test="user-onboarding-next"]'),
+        onboardingNextButton: () => cy.get('[data-test="user-onboarding-next"]'), //1st screen and 3rd screen 'Done' button
         //next screen of the same window:
         bankNameField: () => cy.get('#bankaccount-bankName-input'),
         bankNameFieldError: () => cy.get('#bankaccount-bankName-input-helper-text'),
@@ -35,5 +35,33 @@ export class CommonElements {
     
     getOnboardingNextButton() {
         return this.elementsOnboardingWindow.onboardingNextButton()
+    }
+
+    getBankNameField() {
+        return this.elementsOnboardingWindow.bankNameField()
+    }
+
+    getBankNameFieldError() {
+        return this.elementsOnboardingWindow.bankNameFieldError()
+    }
+
+    getRoutingNumberField() {
+        return this.elementsOnboardingWindow.routingNumberField()
+    }
+
+    getRoutingNumberFieldError() {
+        return this.elementsOnboardingWindow.routingNumberFieldError()
+    }
+
+    getAccountNumberField() {
+        return this.elementsOnboardingWindow.accountNumberField()
+    }
+
+    getAccountNumberFieldError() {
+        return this.elementsOnboardingWindow.accountNumberFieldError()
+    }
+
+    getSaveButton() {
+        return this.elementsOnboardingWindow.saveButton()
     }
 }

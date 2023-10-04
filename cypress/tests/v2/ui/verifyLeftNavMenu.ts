@@ -1,4 +1,5 @@
 import { Pages } from "../../../support/pageObjects/Pages"
+import testData from "../../../support/testData/testDataExistingUser.json"
 
 let pages = new Pages();
 
@@ -36,9 +37,9 @@ describe('Left navigation menu verification', () => {
     it('Verify UI elements presence on left navigation menu', () => {
         pages.navigationMenu.getProfieIcon()
             .should('have.attr', 'src', 'https://cypress-realworld-app-svgs.s3.amazonaws.com/t45AiwidW.svg')
-            pages.navigationMenu.getUserName().should('contain', 'Katharina_Bernier')
-            pages.navigationMenu.getFirstName().should('contain', 'Edgar')
-            pages.navigationMenu.getLastName().should('contain', 'J')
+            pages.navigationMenu.getUserName().should('contain', testData.userName)
+            pages.navigationMenu.getFirstName().should('contain', testData.firstName)
+            pages.navigationMenu.getLastName().should('contain', testData.lastName.charAt(0).toUpperCase())
             pages.navigationMenu.getAmount().should('not.be.empty')
             pages.navigationMenu.getAccBalanceLabel()
             .should('contain', 'Account Balance')

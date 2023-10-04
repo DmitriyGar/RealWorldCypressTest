@@ -100,7 +100,7 @@ declare namespace Cypress {
      */
     login(username: string, password: string, loginOptions?: LoginOptions): void;
 
-    loginUI(): void;
+    loginUI(username: string, password: string): void;
 
     /**
      * Logs-in user by using API request

@@ -1,4 +1,5 @@
 import { Pages } from "../../../support/pageObjects/Pages"
+import testData from "../../../support/testData/testDataNewUser.json"
 
 
 let pages = new Pages();
@@ -124,18 +125,18 @@ describe('Verify Sign Up page:', () => {
     })
 
     it('Verify user can sign up to the app', () => {
-        pages.signUpPage.getFirstNameField().type('testf')
-        pages.signUpPage.getLastNameField().type('testl')
-        pages.signUpPage.getUsernameField().type('testu')
-        pages.signUpPage.getPasswordField().type('test')
-        pages.signUpPage.getConfirmPasswordField().type('test')
+        pages.signUpPage.getFirstNameField().type(testData.firstName)
+        pages.signUpPage.getLastNameField().type(testData.lastName)
+        pages.signUpPage.getUsernameField().type(testData.userName)
+        pages.signUpPage.getPasswordField().type(testData.password)
+        pages.signUpPage.getConfirmPasswordField().type(testData.confirmPassword)
         pages.signUpPage.getSignUpButton().should('be.enabled').click()
         cy.url().should('contain','/signin')
-        pages.signInPage.getUsernameField().type('testu1')
-        pages.signInPage.getPasswordField().type('test1')
+        pages.signInPage.getUsernameField().type(testData.userName)
+        pages.signInPage.getPasswordField().type(testData.password)
         pages.signInPage.getSignInButton().click().wait(500)
-        pages.commonElements.getDialogWindowSection().should('be.visible')
-        pages.commonElements.getOnboardingTitle().should('contain','Get Started with Real World App')
+        pages.homePageOnboardingScreen.getDialogWindowSection().should('be.visible')
+        pages.homePageOnboardingScreen.getOnboardingTitle().should('contain','Get Started with Real World App')
 
     })
 })

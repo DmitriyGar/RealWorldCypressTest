@@ -76,15 +76,48 @@
       "modifiedAt": "2020-05-21T15:15:33.944Z"
     },
     {
-      "id": "fyiPetqRF",
-      "uuid": "91e65e60-cfaf-4754-9776-1dd8fcb66d17",
-      "firstName": "testf",
-      "lastName": "testl",
-      "username": "testu",
-      "password": "$2a$10$u7oTLbY4tAEM2qgyuDAYFuVaYlcecc.7xA8QLV0qV0uzQ8Z14PEFi",
+      "id": "1LCs2Uy_9",
+      "uuid": "fea80484-ddb4-4c59-ba4f-3401856af53f",
+      "firstName": "Sarah",
+      "lastName": "Connor",
+      "username": "sarahconnor",
+      "password": "$2a$10$TeE15sW46u7MfXQnqxXI/uCiAKx68QVMNLZP3cLE2k.4hdyEh.R8q",
       "balance": 0,
-      "createdAt": "2023-10-03T14:44:47.125Z",
-      "modifiedAt": "2023-10-03T14:44:47.125Z"
+      "createdAt": "2023-10-04T16:55:32.617Z",
+      "modifiedAt": "2023-10-04T16:55:32.617Z"
+    },
+    {
+      "id": "LygQKqEO_",
+      "uuid": "2ba4c65d-0cef-4703-a2e5-1a0926d5e826",
+      "firstName": "Sarah",
+      "lastName": "Connor",
+      "username": "sarahconnor",
+      "password": "$2a$10$ZQBkcn79fBM2UKMe9xZiP.vtwLGav2R1dzHog671IOBXJ.PsuVORW",
+      "balance": 0,
+      "createdAt": "2023-10-04T16:57:02.120Z",
+      "modifiedAt": "2023-10-04T16:57:02.120Z"
+    },
+    {
+      "id": "Os7y08CzD",
+      "uuid": "13bd6f4c-6cc2-42ae-aa71-e82adace6606",
+      "firstName": "Sarah",
+      "lastName": "Connor",
+      "username": "sarahconnor1",
+      "password": "$2a$10$Qwkr/eDdIEnNYpEJ5ZzwV.p9cH926pcRjB5zZqFYeP3ybaoU3WxKK",
+      "balance": 0,
+      "createdAt": "2023-10-04T16:58:01.244Z",
+      "modifiedAt": "2023-10-04T16:58:01.244Z"
+    },
+    {
+      "id": "cfITfBNuB",
+      "uuid": "b590a395-f077-4d6a-82c0-e1bf7c0797cd",
+      "firstName": "Sarah",
+      "lastName": "Connor",
+      "username": "sarahconnor1",
+      "password": "$2a$10$Y0vOabvuEpKDBArNdz9jS.p9q0/1J5iBktCE5J8NuD0LMXnu2X7H2",
+      "balance": 0,
+      "createdAt": "2023-10-04T16:58:28.590Z",
+      "modifiedAt": "2023-10-04T16:58:28.590Z"
     }
   ],
   "contacts": [
@@ -264,6 +297,28 @@
       "isDeleted": false,
       "createdAt": "2019-09-30T14:20:07.043Z",
       "modifiedAt": "2020-05-21T22:40:28.910Z"
+    },
+    {
+      "id": "4-ecj5DfI",
+      "uuid": "eb4d8181-1b06-4011-b819-33a8a8261a8a",
+      "userId": "1LCs2Uy_9",
+      "bankName": "Bank Account #1",
+      "accountNumber": "123456789012",
+      "routingNumber": "123456789",
+      "isDeleted": false,
+      "createdAt": "2023-10-04T16:55:42.638Z",
+      "modifiedAt": "2023-10-04T16:55:42.638Z"
+    },
+    {
+      "id": "f5yTmCCwy",
+      "uuid": "fffe4e96-6fcc-4b53-8218-d9f4c6be6c73",
+      "userId": "Os7y08CzD",
+      "bankName": "Bank Account #1",
+      "accountNumber": "123456789012",
+      "routingNumber": "123456789",
+      "isDeleted": false,
+      "createdAt": "2023-10-04T16:58:36.735Z",
+      "modifiedAt": "2023-10-04T16:58:36.735Z"
     }
   ],
   "transactions": [
