@@ -4,5 +4,8 @@
     "userName": "sarahconnor",
     "email":"sarahconnortest@test.com",
     "password": "test",
-    "confirmPassword": "test"
+    "confirmPassword": "test",
+    "bankAccountName": "Bank Account #1",
+    "routingNumber": "123456789",
+    "AccountNumber":"123456789012"
 }

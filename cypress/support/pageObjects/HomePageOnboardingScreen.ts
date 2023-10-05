@@ -7,14 +7,16 @@ export class HomePageOnboardingScreen {
         onboardingLogo: () => cy.get('[data-test="user-onboarding-dialog-content"] div svg'),
         onboardingText: () => cy.get('[data-test="user-onboarding-dialog-content"] div p'),
         onboardingNextButton: () => cy.get('[data-test="user-onboarding-next"]'), //1st screen and 3rd screen 'Done' button
-        //next screen of the same window:
+        //2nd screen of the same window:
         bankNameField: () => cy.get('#bankaccount-bankName-input'),
         bankNameFieldError: () => cy.get('#bankaccount-bankName-input-helper-text'),
         routingNumberField: () => cy.get('#bankaccount-routingNumber-input'),
         routingNumberFieldError: () => cy.get('#bankaccount-routingNumber-input-helper-text'),
         accountNumberField: ()=> cy.get('#bankaccount-accountNumber-input'),
         accountNumberFieldError: ()=> cy.get('#bankaccount-accountNumber-input-helper-text'),
-        saveButton: () => cy.get('[data-test="bankaccount-submit"]')
+        onboardingSaveButton: () => cy.get('[data-test="bankaccount-submit"]'),
+        //3d finish screen of the same window:
+        onboardingDoneButton: () => cy.get('[data-test="user-onboarding-next"] .MuiButton-label')
     }
 
     getDialogWindowSection() {
@@ -33,7 +35,7 @@ export class HomePageOnboardingScreen {
         return this.elementsOnboardingWindow.onboardingText()
     }
     
-    getOnboardingNextButton() {
+    getNextButton() {
         return this.elementsOnboardingWindow.onboardingNextButton()
     }
 
@@ -62,6 +64,10 @@ export class HomePageOnboardingScreen {
     }
 
     getSaveButton() {
-        return this.elementsOnboardingWindow.saveButton()
+        return this.elementsOnboardingWindow.onboardingSaveButton()
+    }
+
+    getDoneButton() {
+        return this.elementsOnboardingWindow.onboardingDoneButton()
     }
 }

@@ -8,9 +8,9 @@ let apiObjectBase = new ApiObjectBase()
 describe('Left navigation menu verification', () => {
     beforeEach('Open the app', () => {
         cy.clearAllCookies()
-        apiObjectBase.createUserAPI.createUserRequest(testData.userName+'1', testData.firstName, testData.lastName, testData.password)
+        apiObjectBase.createUserAPI.createUserRequest(testData.userName+'8', testData.firstName, testData.lastName, testData.password)
         cy.visit('/')
-        cy.loginUI(testData.userName+'1', testData.password)
+        cy.loginUI(testData.userName+'8', testData.password)
 
     })
 
@@ -20,11 +20,11 @@ describe('Left navigation menu verification', () => {
         pages.homePageOnboardingScreen.getOnboardingLogo().should('be.visible')
         pages.homePageOnboardingScreen.getOnboardingText().should('contain', 'Real World App requires a Bank Account to perform transactions.')
             .and('contain', 'Click').and('contain', 'Next').and('contain', 'to begin setup of your Bank Account.')
-        pages.homePageOnboardingScreen.getOnboardingNextButton().should('be.visible')
+        pages.homePageOnboardingScreen.getNextButton().should('be.visible')
     })
 
     it('Verif UI elements presence on Onboarding screen 2', () => {
-        pages.homePageOnboardingScreen.getOnboardingNextButton().click()
+        pages.homePageOnboardingScreen.getNextButton().click()
         pages.homePageOnboardingScreen.getBankNameField().should('be.empty').invoke('attr', 'placeholder')
             .should('contain', 'Bank Name')
         pages.homePageOnboardingScreen.getRoutingNumberField().should('be.empty')
@@ -35,7 +35,7 @@ describe('Left navigation menu verification', () => {
     })
 
     it('Verify negative fields validation of Bank Account field on Onboarding screen 2', () => {
-        pages.homePageOnboardingScreen.getOnboardingNextButton().click()
+        pages.homePageOnboardingScreen.getNextButton().click()
         pages.homePageOnboardingScreen.getBankNameField().focus()
         pages.homePageOnboardingScreen.getSaveButton().click()
         pages.homePageOnboardingScreen.getBankNameFieldError().should('be.visible').and('contain','Enter a bank name')
@@ -55,7 +55,7 @@ describe('Left navigation menu verification', () => {
     })
 
     it('Verify negative fields validation of Routing Number field on Onboarding screen 2', () => {
-        pages.homePageOnboardingScreen.getOnboardingNextButton().click()
+        pages.homePageOnboardingScreen.getNextButton().click()
         pages.homePageOnboardingScreen.getRoutingNumberField().focus()
         pages.homePageOnboardingScreen.getSaveButton().click()
         pages.homePageOnboardingScreen.getRoutingNumberFieldError().should('be.visible').and('contain','Enter a valid bank routing number')
@@ -83,7 +83,7 @@ describe('Left navigation menu verification', () => {
     })
 
     it('Verify negative fields validation of Account Number field on Onboarding screen 2', () => {
-        pages.homePageOnboardingScreen.getOnboardingNextButton().click()
+        pages.homePageOnboardingScreen.getNextButton().click()
         pages.homePageOnboardingScreen.getAccountNumberField().focus()
         pages.homePageOnboardingScreen.getBankNameField().focus()
         pages.homePageOnboardingScreen.getAccountNumberFieldError().should('be.visible').and('contain','Enter a valid bank account number')
@@ -112,7 +112,7 @@ describe('Left navigation menu verification', () => {
     })
 
     it('Verify positive fields validation with MIN length data on Onboarding screen 2', () => {
-        pages.homePageOnboardingScreen.getOnboardingNextButton().click()
+        pages.homePageOnboardingScreen.getNextButton().click()
         pages.homePageOnboardingScreen.getBankNameField().clear().type('1@aC5')
         pages.homePageOnboardingScreen.getBankNameFieldError().should('not.exist')
 
@@ -125,7 +125,7 @@ describe('Left navigation menu verification', () => {
     })
 
     it('Verify positive fields validation with MAX length data on Onboarding screen 2', () => {
-        pages.homePageOnboardingScreen.getOnboardingNextButton().click()
+        pages.homePageOnboardingScreen.getNextButton().click()
         pages.homePageOnboardingScreen.getBankNameField().clear().type('1@aC5 N@me 1234567890 account')
         pages.homePageOnboardingScreen.getBankNameFieldError().should('not.exist')
 
@@ -138,13 +138,13 @@ describe('Left navigation menu verification', () => {
     })
 
     it.only('Verify Bank Account creation via Onboarding screen', () => {
-        pages.homePageOnboardingScreen.getOnboardingNextButton().click()
-        pages.homePageOnboardingScreen.getBankNameField().clear().type('Bank Account #1')
+        pages.homePageOnboardingScreen.getNextButton().click()
+        pages.homePageOnboardingScreen.getBankNameField().clear().type(testData.bankAccountName)
 
-        pages.homePageOnboardingScreen.getRoutingNumberField().clear().type('123456789')
+        pages.homePageOnboardingScreen.getRoutingNumberField().clear().type(testData.routingNumber)
         pages.homePageOnboardingScreen.getRoutingNumberFieldError().should('not.exist')
 
-        pages.homePageOnboardingScreen.getAccountNumberField().clear().type('123456789012')
+        pages.homePageOnboardingScreen.getAccountNumberField().clear().type(testData.AccountNumber)
         pages.homePageOnboardingScreen.getAccountNumberFieldError().should('not.exist')
         pages.homePageOnboardingScreen.getSaveButton().should('be.enabled').click()
 
@@ -152,6 +152,7 @@ describe('Left navigation menu verification', () => {
         pages.homePageOnboardingScreen.getOnboardingLogo().should('be.visible')
         pages.homePageOnboardingScreen.getOnboardingText().should('contain', 'You\'re all set!')
             .and('contain', 'We\'re excited to have you aboard the Real World App!')
-        pages.homePageOnboardingScreen.getOnboardingNextButton().should('be.visible').and('contain','DONE').click()
+        pages.homePageOnboardingScreen.getDoneButton().should('be.visible').and('contain','Done').click()
+        pages.homePageOnboardingScreen.getDialogWindowSection().should('not.exist')
     })
 })

@@ -1,3 +1,4 @@
+import { BankAccountsPage } from "./BankAccountPAge";
 import { HomePage } from "./HomePage";
 import { HomePageOnboardingScreen } from "./HomePageOnboardingScreen";
 import { NavigationMenu } from "./NavigationMenu";
@@ -10,6 +11,7 @@ export class Pages {
  public signInPage:SignInPage;
  public signUpPage:SignUpPage;
  public homePageOnboardingScreen:HomePageOnboardingScreen;
+ public bankAccountPage:BankAccountsPage
     
     constructor(){
      this.homePage = new HomePage();
@@ -17,5 +19,6 @@ export class Pages {
      this.signInPage = new SignInPage();
      this.signUpPage = new SignUpPage();
      this.homePageOnboardingScreen = new HomePageOnboardingScreen()
+     this.bankAccountPage = new BankAccountsPage()
     }
 }
