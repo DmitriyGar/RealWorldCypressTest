@@ -1,26 +1,42 @@
+let removetBankAccountItemByName = function(){
+
+}
 export class BankAccountsPage {
-    
+
     private readonly getElementsBankAccountsPage = {
         title: () => cy.get('main h2'),
-        bankAccountName: ()=> cy.get('[data-test="bankaccount-list"] li div div p'),
-        createButton: ()=> cy.get('[data-test="bankaccount-new"]'),
-        deleteButton: ()=> cy.get('[data-test="bankaccount-list"] li div div button'),
+        bankAccountName: (n: number = 0) => cy.get('[data-test="bankaccount-list"] li div div p').eq(n),
+        bankAccountRows: () => cy.get('[data-test="bankaccount-list"] li'),
+        createButton: () => cy.get('[data-test="bankaccount-new"]'),
+        deleteButton: (n: number = 0) => cy.get('[data-test="bankaccount-list"] li div div button').eq(n),
         //new bank account:
         bankNameField: () => cy.get('#bankaccount-bankName-input'),
         bankNameFieldError: () => cy.get('#bankaccount-bankName-input-helper-text'),
         routingNumberField: () => cy.get('#bankaccount-routingNumber-input'),
         routingNumberFieldError: () => cy.get('#bankaccount-routingNumber-input-helper-text'),
-        accountNumberField: ()=> cy.get('#bankaccount-accountNumber-input'),
-        accountNumberFieldError: ()=> cy.get('#bankaccount-accountNumber-input-helper-text'),
-        onboardingSaveButton: () => cy.get('[data-test="bankaccount-submit"]')
+        accountNumberField: () => cy.get('#bankaccount-accountNumber-input'),
+        accountNumberFieldError: () => cy.get('#bankaccount-accountNumber-input-helper-text'),
+        newBankAccountSaveButton: () => cy.get('[data-test="bankaccount-submit"]')
     }
 
     getTitle() {
         return this.getElementsBankAccountsPage.title();
     }
 
-    getBankAccountName() {
-        return this.getElementsBankAccountsPage.bankAccountName();
+    getBankAccountName(n: number = 0) {
+        return this.getElementsBankAccountsPage.bankAccountName(n);
+    }
+
+    getBankAccountNames() {
+        return this.getElementsBankAccountsPage.bankAccountRows();
+    }
+
+   getBankAccountItemByName (){
+   
+    }
+
+    createNewBankAccountItem(){
+
     }
 
     getCreateButton() {
@@ -51,7 +67,7 @@ export class BankAccountsPage {
         return this.getElementsBankAccountsPage.accountNumberFieldError();
     }
 
-    getOnboardingSaveButton() {
-        return this.getElementsBankAccountsPage.onboardingSaveButton();
-    }   
+    getNewBankAccountSaveButton() {
+        return this.getElementsBankAccountsPage.newBankAccountSaveButton();
+    }
 }

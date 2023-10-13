@@ -1,0 +1,490 @@
+********************************
+ Template literals allow multiline strings, without using \n
+let name = "John";
+let text = `Welcome, ${name}`;
+
+********************************
+ Data types: 
+- string
+- number
+- boolean
+- null
+- undefined
+
+********************************
+ Objects:
+
+var customer = {
+firstName: 'John',
+lastName: 'Smith'
+}
+
+********************************
+ Arrays:
+
+var car = ["volvo", "toyota", "honda"]
+console.log(car[0])
+********************************
+
+ for of loop:
+
+var cars = ["volvo", "toyota", "honda"]
+for (let car of cars){
+console.log(car)
+}
+********************************
+
+ for Each:
+
+var cars = ["volvo", "toyota", "honda"]
+cars.forEach( car => {
+console.log(car)} )
+
+********************************
+ Functions:
+
+//Declaritive:
+function helloOne(){
+console.log("Hello One");
+}
+
+//Anonymous:
+var helloTwo = function(){
+console.log("Hello Two!");
+}
+
+//ES6 or arrow function:
+var helloThree = () => {
+console.log("Hello Three!");
+}
+
+//Function with arguments:
+function helloFour(name){
+console.log(name);
+}
+********************************
+
+//Importing functions/classes:
+	//file1:
+export function resultMultiply(number1, number2){
+    console.log(`${number1}*${number2}=`+number1*number2)
+}	
+	//add parametr to package.json:
+"type":"module"
+	//file2:
+import {resultMultiply}  from '../helpers/helpers.js'
+resultMultiply(5,7)
+********************************
+
+//Importing everything:
+
+import * as helpers from '../helpers/helpers.js'
+helpers.resultMultiply(2,3)
+
+********************************
+
+Load project:
+
+1. git clone
+
+2. open project in VS Code 
+
+3. terminal -> npm install -force
+
+4. terminal -> npm start (App is loaded)
+
+5. terminal -> npm install cypress --save-dev
+
+6. Config cypress in the progect (cypress.config.js)
+
+7. terminal -> npx cypress open (Cypress is loaded)
+
+******************************************
+
+describe('Our First Suite', ()=>{
+
+    describe('Our suite section', () => {
+
+        beforeEach('code before each test', () =>{
+            //code
+        })
+
+        it('some test', ()=> {
+
+        })  
+    })
+
+    it('first test', ()=> {
+
+    })  
+})
+
+describe() / context() - every spec file starts with it, description what to test
+beforeEach() - preconditions for every test
+it() - test
+
+********************************************
+
+Set web elements / locators
+
+it('first test', ()=> {
+
+		//by Tag name
+        cy.get('input')
+        
+        //by ID
+        cy.get('#inputEmail')
+
+        //by Class name
+        cy.get('.input-full-width')
+
+        //by Class value
+        cy.get('[class="input-full-width size-medium shape-rectangle"]')
+
+        //by Attribute name
+        cy.get('[placeholder]')
+
+        //by Attribute name and value
+        cy.get('[placeholder="Email"]')
+
+        //by Tag name and Attribute with value
+        cy.get('input[placeholder="Email"]')
+
+        //by two different attributes
+        cy.get('[placeholder="Email"][fullwidth]')
+
+        //by tag name, Attribute with value, ID and Class name
+         cy.get('input[placeholder="Email"]#inputEmail.input-full-width')
+
+        //the most recommended way by Cypress (via added own attributes into the app)
+        cy.get('[data-cy="imputEmail1"]')
+		
+		// by contains 
+		cy.contains('[id=Email]','Form Layouts')
+		
+		//by children
+		cy.get('div[class="offset-sm-3 col-sm-9"').children('button[status="primary"]')
+        
+		//by parent	 
+		cy.get('button[status="primary"]').parent('div[class="offset-sm-3 col-sm-9"')
+		
+		//by find parent and to find button in that parent
+		cy.get('#inputEmail3').parents('form').find('button')
+		
+		//with assertion 
+		cy.get('#inputEmail3').parents('form').find('button').should('contain','Sign in')
+		
+		//traveling in DOM
+		cy.get('#inputEmail3')
+        .parents('form')
+        .find('button')
+        .should('contain','Sign in')
+        .parents('form')
+        .find('nb-checkbox')
+        .click()
+
+
+}) 
+
+*************************************************************
+
+Run test
+
+ it('first test', ()=> {
+        
+		//open the app via Cypress with root path of the app
+        cy.visit('/')                 
+		
+		// click at any element contains 'Forms'
+        cy.contains('Forms').click()      
+		
+		// click at any element contains 'Form Layouts'
+        cy.contains('Form Layouts').click()
+
+        //by Tag name
+        cy.get('input')
+		
+************************************************************
+
+//Then and Wrap methods:
+
+it.only('next test',() => {
+    cy.visit('/')
+    cy.contains('Forms').click();
+    cy.contains('Form Layouts').click()
+
+    cy.contains('nb-card','Using the Grid').then(firstForm => {
+        //JQuery format:
+        const emailLabelFirst = firstForm.find('[for="inputEmail1"]').text()
+        const passwordLabelFirst = firstForm.find('[for="inputPassword2"]').text()
+        expect(emailLabelFirst).to.equal('Email')
+        expect(passwordLabelFirst).to.equal('Password')
+
+        //wrap into CY
+        cy.wrap(firstForm).find('[for="inputEmail1"]').should('contain','Email')
+    })
+})
+*************************************************************
+
+Methods:
+Methods are functions that are stored as object properties. 
+
+function person(name, age) {
+  this.name = name;  
+  this.age = age;
+  this.changeName = function (name) {
+    this.name = name;
+  }
+}
+
+var p = new person("David", 21);
+p.changeName("John");
+
+***********************************************************
+
+ARRAYS:
+
+var arr = new Array(3, 6, 8);
+document.write(arr[1]);
+
+////////OR/////////
+var courses = new Array();
+courses[0] = "HTML";
+courses[1] = "CSS";
+courses[2] = "JS";
+
+
+///////Assotiative Arrays: //////
+
+var person = []; //empty array
+person["name"] = "John";
+person["age"] = 46;
+document.write(person["age"]);
+
+In JavaScript, arrays always use numbered indexes.
+If you use a named index, JavaScript will redefine the array to a standard object.
+
+//////////////////// ADD or REMOVE elements //////////////
+
+const numbers = [2, 3, 4]
+
+Add at the end of array:
+		numbers.push(5, 6)
+		
+Remove at the end of array:
+		numbers.pop(5)
+		
+Add at the specified position of array:
+		numbers.splice(2,0,'a','b')
+
+Remove at the specified position of array:
+		numbers.splice(2,1)
+
+Add at the beginning of array:
+		numbers.unshift(1)
+		
+Remove at the beginning of array:
+		numbers.shift()
+
+/////////////////////
+	const numbers = [1,-1,3,2]
+
+	numbers.sort()  - sort array
+
+	numbers.reverse() - reverse array
+
+	numbers.filter((value)=> value<=0) - filter array (by positive numbers)
+
+////////sort array with objects (upper/lowercase are sorted by ASCII)
+  const cources = {  
+   {id: 1, name: 'Node.js'},
+   {id: 2, name: 'javaScript'}
+  }
+  numbers.sort(funxtion(a,b){
+   const nameA = a.name.toLowerCase()
+   const nameB = b.name.toLowerCase()
+   if(nameA<nameB) return -1;
+   else if (nameA>nameB) return 1;
+  return 0;
+  )
+//////////////////////
+
+
+
+
+***********************************************************
+
+To get a random number between 1-10, use Math.random(), which gives you a number between 0-1. Then multiply the number by 10, and then take Math.ceil() from it: Math.ceil(Math.random() * 10)
+
+***********************************************************
+
+Set interval:
+
+function myAlert() {
+    alert("Hi");
+}
+setInterval(myAlert, 3000);
+
+////
+This will call the myAlert function every 3 seconds (1000 ms = 1 second).
+
+***********************************************************
+
+Date Object:
+
+var d = new Date();
+var d = new Date(milliseconds)
+var d = new Date(dateString)
+var d = new Date(year, month, day, hours, minutes, seconds, milliseconds)
+
+getFullYear()
+Получить год (из 4 цифр)
+
+getMonth()
+Получить месяц, от 0 до 11.
+
+getDate()
+Получить число месяца, от 1 до 31.
+
+getHours(), getMinutes(), getSeconds(), getMilliseconds()
+Получить соответствующие компоненты.
+
+// 31 января 2013
+var d = new Date(2013, 0, 31); 
+
+//Fri Jan 02 1970 00:00:00
+var d1 = new Date(86400000);
+
+//Fri Jan 02 2015 10:42:00
+var d2 = new Date("January 2, 2015 10:42:00");
+
+//Sat Jun 11 1988 11:42:00
+var d3 = new Date(88,5,11,11,42,0,0);
+
+//hours is equal to the current hour
+var hours = d.getHours();
+
+//print date 2023-08-22T10:32:37.592Z
+console.log( new Date().toISOString())
+
+//print date 2023-08-22
+console.log( new Date().toISOString().slice(0,10))
+
+//print date 22.08.2023
+console.log( new Date().toISOString().slice(0,10).split('-').reverse().join('.'))
+
+
+function printTime() {
+  var d = new Date();
+  var hours = d.getHours();
+  var mins = d.getMinutes();
+  var secs = d.getSeconds();
+  //The innerHTML property sets or returns the HTML content of an element.
+  document.body.innerHTML = hours+":"+mins+":"+secs;
+}
+setInterval(printTime, 1000);
+
+//////////////////////////////
+var date2 = new Date();
+var options = {
+  era: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  weekday: 'long',
+  timezone: 'UTC',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric'
+}
+// 8/27/2023, 1:42:20 PM
+console.log(date2.toLocaleString("en-US", `${options.month} ${options.day} ${options.year}`))
+// воскресенье, 27 августа 2023 г. от Рождества Христова в 13:37:05 
+console.log( date2.toLocaleString("ru", options) )
+// Sunday, August 27, 2023 Anno Domini at 1:37:05 PM 
+console.log( date2.toLocaleString("en-US", options) ) 
+
+***********************************************************
+
+DOM / Select elements in DOM:
+
+//finds element by id
+document.getElementById(id)
+
+//finds elements by class name
+document.getElementsByClassName(name)
+
+//finds elements by tag name
+document.getElementsByTagName(name)
+
+//getElementById method is used to select the element with id="demo" and change its content:
+var elem = document.getElementById("demo");
+elem.innerHTML = "Hello World!";
+
+**********************************************************
+
+//calling the function in window.onload to make sure the HTML is loaded
+window.onload = function() {
+    var p = document.createElement("p");
+    var node = document.createTextNode("This is new");
+    p.appendChild(node);
+
+    var parent = document.getElementById("demo");
+    var child = document.getElementById("p1");
+    parent.replaceChild(p, child);
+};
+
+**********************************************************
+
+ES6 MAP:
+(key, value)
+
+let map = new Map([['k1', 'v1'], ['k2', 'v2']]);
+console.log(map.size); //20
+
+set(key, value) - Adds a specified key/value pair to the map. If the specified key already exists, value corresponding to it is replaced with the specified value.
+
+get(key) - Gets the value corresponding to a specified key in the map. If the specified key doesn't exist, undefined is returned.
+
+has(key) - Returns true if a specified key exists in the map and false otherwise.
+
+delete(key) - Deletes the key/value pair with a specified key from the map and returns true. Returns false if the element does not exist.
+
+clear() - Removes all key/value pairs from map.
+
+keys() - Returns an Iterator of keys in the map for each element.
+
+values() - Returns an Iterator of values in the map for each element.
+
+entries() - Returns an Iterator of array[key, value] in the map for each element.
+
+**********************************************************
+
+ES6 SET:
+A Set object can be used to hold unique values
+
+let set = new Set();
+set.add(5).add(9).add(59).add(9);
+console.log(set.has(9));   //true
+for (let v of set.values())
+console.log(v);   // 5 9 59
+
+add(value) - Adds a new element with the given value to the Set.
+delete(value) - Deletes a specified value from the set.
+has(value) - Returns true if a specified value exists in the set and false otherwise.
+clear() - Clears the set.
+values() - Returns an Iterator of values in the set.
+
+***********************************************************
+
+Add custom commands for Cypress:
+
+//open commands.js file and add own command:
+Cypress.Commands.add('openHomePage',()=>{
+    cy.visit('/')
+})
+
+//open needed js file and use this command:
+cy.openHomePage()
+
+***********************************************************

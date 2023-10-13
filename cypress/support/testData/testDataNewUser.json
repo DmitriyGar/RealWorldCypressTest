@@ -5,7 +5,7 @@
     "email":"sarahconnortest@test.com",
     "password": "test",
     "confirmPassword": "test",
-    "bankAccountName": "Bank Account #1",
+    "bankAccountName": "Bank Account #",
     "routingNumber": "123456789",
     "AccountNumber":"123456789012"
 }

@@ -96,8 +96,6 @@ export class NavigationMenu {
             cy.wrap(form).find('h2.MuiTypography-root').should('contain', 'Bank Accounts')
             cy.wrap(form).find('[data-test="bankaccount-new"]').should('be.visible')
                 .find('.MuiButton-label').should('contain', 'Create')
-            cy.wrap(form).find('[data-test="bankaccount-delete"]').should('be.visible')
-                .find('.MuiButton-label').should('contain', 'Delete')
         })
     }
 
