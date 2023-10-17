@@ -5,6 +5,7 @@
     "email":"sarahconnortest@test.com",
     "password": "test",
     "confirmPassword": "test",
+    "phoneNumber":"625-316-9882",
     "bankAccountName": "Bank Account #",
     "routingNumber": "123456789",
     "AccountNumber":"123456789012"

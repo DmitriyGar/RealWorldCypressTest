@@ -94,7 +94,7 @@
     "concurrently": "7.1.0",
     "cors": "2.8.5",
     "cross-env": "7.0.3",
-    "cypress": "^13.1.0",
+    "cypress": "^13.3.1",
     "cypress-mochawesome-reporter": "^3.6.0",
     "cypress-multi-reporters": "^1.6.3",
     "dotenv": "16.0.0",

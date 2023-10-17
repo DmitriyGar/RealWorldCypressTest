@@ -293,7 +293,9 @@ Remove at the beginning of array:
 
 	numbers.reverse() - reverse array
 
-	numbers.filter((value)=> value<=0) - filter array (by positive numbers)
+	numbers.filter(value=> value<=0) - filter array (by positive numbers)
+	
+	numbers.map(n=>)
 
 ////////sort array with objects (upper/lowercase are sorted by ASCII)
   const cources = {  
@@ -488,3 +490,35 @@ Cypress.Commands.add('openHomePage',()=>{
 cy.openHomePage()
 
 ***********************************************************
+
+Getters and Setters
+
+get and set - should be added before functions inside objects to get or set the value
+
+***********************************************************
+
+Try and Catch
+
+const person ={
+   firstName: 'John',
+   lastName: 'Smith',
+   set fullName(value){
+	if(typeof value !== 'string')
+	   throw new Error('Value is not a string')
+	   const parts=value.split(' ')
+	   if (parts.length !=2)
+			throw new Error ('Enter a first or last name!')
+	   this.firstName = parts[0];
+	   this.lastName = parts[1];
+   }
+}
+
+try {
+   person.fullName = null;
+} 
+catch (e) {
+alert(e)
+}
+console.log(person)
+
+**********************************************************

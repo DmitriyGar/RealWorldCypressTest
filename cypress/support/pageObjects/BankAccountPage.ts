@@ -1,6 +1,4 @@
-let removetBankAccountItemByName = function(){
 
-}
 export class BankAccountsPage {
 
     private readonly getElementsBankAccountsPage = {
@@ -9,7 +7,7 @@ export class BankAccountsPage {
         bankAccountRows: () => cy.get('[data-test="bankaccount-list"] li'),
         createButton: () => cy.get('[data-test="bankaccount-new"]'),
         deleteButton: (n: number = 0) => cy.get('[data-test="bankaccount-list"] li div div button').eq(n),
-        //new bank account:
+        //new bank account screen:
         bankNameField: () => cy.get('#bankaccount-bankName-input'),
         bankNameFieldError: () => cy.get('#bankaccount-bankName-input-helper-text'),
         routingNumberField: () => cy.get('#bankaccount-routingNumber-input'),
