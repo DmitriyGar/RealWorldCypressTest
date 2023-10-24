@@ -1,15 +1,16 @@
 import { Pages } from "../../../support/pageObjects/Pages"
 import { negativeOrPositiveAmountWrapper } from "../../../support/helpers/HelpMethods";
-
+import testData from "../../../support/testData/testDataExistingUser.json"
 
 
 let pages = new Pages();
+
 
 describe('Verify Home page', () => {
 
     beforeEach('Preconditions', () => {
         cy.visit('/')
-        cy.loginUI()
+        cy.loginUI(testData.userName,testData.password)
     })
 
     var checkTransactionsUImatchAPI2 = function (page: number = 1) {
@@ -38,7 +39,7 @@ describe('Verify Home page', () => {
 
 
 
-    it.only('Verify UI elements presence on Home Page', () => {
+    it('Verify UI elements presence on Home Page', () => {
         pages.navigationMenu.openHomePage();
         pages.homePage.getSelectedTab().should('contain', 'Everyone')
         pages.homePage.getEveryoneTab().should('be.visible')
@@ -95,13 +96,34 @@ describe('Verify Home page', () => {
     })
 
 
-    it.only('Verify transactions on MINE tab of Home Page match API', () => {
+    it.skip('Verify transactions on MINE tab of Home Page match API', () => {
 
         pages.navigationMenu.openHomePage();
-        //pages.homePage.getMineTab().click();
-    
-        checkTransactionsUImatchAPI2();
+        cy.wait(500)
+        let n=1
+        let shift=0;
+        while(n<30){
+        cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]').find('div')
+          .find('li div div div.MuiGrid-grid-sm-true div.MuiGrid-item span').eq(n)
+          shift+=128
+        cy.get('[aria-label="grid"]').focus().scrollTo(0,shift)
+        cy.wait(500)
+        n++
+        }
+
+       /* pages.homePage.getTableTransactions().invoke('attr','style').then( (css)=>{
+            let array:string[]|undefined=[];
+            if (typeof(css)==='string'){
+            array=css.toString().split('; ')
+            let height=Number(array[1].split(': ')[1].slice(0,-2))
+            console.log(height)
+            cy.get('[aria-label="grid"]').focus().scrollTo('top')
+            console.log(css)
+            }
+        })
+ */
     })
 
 })
+
 

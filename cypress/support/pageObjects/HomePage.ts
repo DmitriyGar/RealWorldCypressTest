@@ -6,7 +6,11 @@ export class HomePage {
             friendsTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(1).find('.MuiTab-wrapper'),
             mineTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(2).find('.MuiTab-wrapper'),
             datePicker: () => cy.get('[data-test="transaction-list-filter-date-range-button"] span'),
-            amountSlider: () => cy.get('[data-test="transaction-list-filter-amount-range-button"] span'),
+            amountSlider: () => cy.get('[data-test="transaction-list-filter-amount-range-button"]'),
+            sliderScreenLabel: ()=> cy.get('[role="presentation"]').find('[data-test="transaction-list-filter-amount-range-button"]'),
+            sliderScreenClearButton: ()=> cy.get('[role="presentation"]').find('[data-test="transaction-list-filter-amount-clear-button"] .MuiButton-label'),
+            sliderScreenStartPoint: () => cy.get('[role="slider"][data-index="0"]'),
+            sliderScreenEndPoint: () => cy.get('[role="slider"][data-index="1"]'),
             nameSentTransaction: (n:number)=> cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
             .find('p span').eq(0),
             actionLabelTransaction: (n:number)=> cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
@@ -16,14 +20,19 @@ export class HomePage {
             paymentLabelTransaction: (n:number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
             .find('p span').eq(0).parent().parent().find('p').eq(1),
             paymentPriceTransaction: (n:number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
-            .find('li div div div.MuiGrid-grid-sm-true div span[data-test]').eq(3),
+            .find('li div div div.MuiGrid-grid-sm-true div.MuiGrid-item span'),
             paymentPriceTransactionById: (id:number) => cy.get(`[data-test="transaction-amount-${id}"]`),
             nameSentTransactionById: (id:number) => cy.get(`[data-test="transaction-sender-${id}"]`),
             nameReceivedTransactionById: (id:number) => cy.get(`[data-test="transaction-receiver-${id}"]`),
             paymentLabelTransactionById: (id:number) => cy.get(`[data-test="transaction-sender-${id}"]`).parent().parent()
-            .contains('p',new RegExp(`${['Payment', 'Request'].join('|')}`, 'g'))
+            .contains('p',new RegExp(`${['Payment', 'Request'].join('|')}`, 'g')),
+            tableTransactions: ()=> cy.get('[role="rowgroup"] div')
     }
 
+    getTableTransactions(){
+        return this.getElementsHomePage.tableTransactions();
+    }
+/*
     getTransaction(n:number){
         this.getElementsHomePage.nameSentTransaction(n).should('contain','Kaylin Homenick');
         this.getElementsHomePage.actionLabelTransaction(n).should('contain','paid');
@@ -31,9 +40,13 @@ export class HomePage {
         this.getElementsHomePage.paymentLabelTransaction(n).should('contain','Payment');
         this.getElementsHomePage.paymentPriceTransaction(n).invoke('prop', 'innerText').should('equal','-$80.31');
     }
-
+*/
     getPaymentLabelTransactionById(id:number){
         return this.getElementsHomePage.paymentLabelTransactionById(id)
+     }
+
+     getPaymentLabelTransaction(id:number){
+        return this.getElementsHomePage.paymentLabelTransaction(id)
      }
 
     getNameSentTransactionById(id:number){
@@ -46,6 +59,10 @@ export class HomePage {
 
     getPaymentPriceTransactionValueById(id:number){
         return this.getElementsHomePage.paymentPriceTransactionById(id)
+     }
+
+     getPaymentPriceTransaction(id:number){
+        return this.getElementsHomePage.paymentPriceTransaction(id)
      }
 
     getSelectedTab(){
@@ -76,5 +93,25 @@ export class HomePage {
     getAmountSlider() {
         cy.log('Get amount slider')
         return this.getElementsHomePage.amountSlider()
+    }
+
+    getAmountSliderStartPoint() {
+        cy.log('Get amount slider')
+        return this.getElementsHomePage.sliderScreenStartPoint()
+    }
+
+    getAmountSliderEndPoint() {
+        cy.log('Get amount slider')
+        return this.getElementsHomePage.sliderScreenEndPoint()
+    }
+
+    getSliderScreenLabel() {
+        cy.log('Get amount slider')
+        return this.getElementsHomePage.sliderScreenLabel()
+    }
+    
+    getSliderScreenClearButton() {
+        cy.log('Get amount slider')
+        return this.getElementsHomePage.sliderScreenClearButton()
     }
 }
