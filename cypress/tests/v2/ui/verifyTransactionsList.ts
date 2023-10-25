@@ -35,7 +35,7 @@ describe('Verify Home page', () => {
         })
     })
 
-    it.only('Verify filtering between 450 and 520 then Clear filter', () => {
+    it.only('Verify filtering between 450 and 520 then Clear filter',  () => {
         cy.log('filter between 450 and 520')
         pages.homePage.getAmountSlider().click({force: true})
         for(let i=0;i<22;i++){
@@ -62,5 +62,4 @@ describe('Verify Home page', () => {
             })
         })
     })
-
 })

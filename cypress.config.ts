@@ -28,6 +28,8 @@ export default defineConfig({
       return require('./cypress/plugins/index.ts').default(on, config)
     },
     defaultCommandTimeout: 5000,
+    responseTimeout: 50000,
+    pageLoadTimeout: 10000,
     baseUrl: 'http://localhost:3000',
     specPattern: 'cypress/tests/v2/**/*.{js,jsx,ts,tsx}',
   },

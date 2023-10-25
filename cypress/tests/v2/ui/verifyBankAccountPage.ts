@@ -1,7 +1,6 @@
 import { Pages } from "../../../support/pageObjects/Pages";
 import { ApiObjectBase } from "../../../support/apiObjects/apiObjectBase";
 import testData from "../../../support/testData/testDataNewUser.json"
-import { forEach } from "lodash";
 
 let pages = new Pages();
 let apiObjectBase = new ApiObjectBase()

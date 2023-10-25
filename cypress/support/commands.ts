@@ -384,7 +384,7 @@ Cypress.Commands.add("loginByApi", (username:string='Katharina_Bernier',password
 })
 
 Cypress.Commands.add("loginUI", (username:string=testData.userName, password:string=testData.password) => {
-  cy.log("Logging in as Katharina")
+  cy.log(`Logging in as ${username}`)
   cy.get('#username').click().type(username)
   cy.get('#password').click().type(password)
   cy.contains('.MuiButton-label', 'Sign In').click()
