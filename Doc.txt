@@ -522,3 +522,30 @@ alert(e)
 console.log(person)
 
 **********************************************************
+
+PLAY AUDIO:
+
+function play() {
+  var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
+  audio.play();
+}
+
+**********************************************************
+
+STRING - remove/change letters in text:
+let string = "Javascript is awesome, isn't it?!";
+
+// Removing the comma
+let newString = string.replace(',', '');
+
+// Removing all 'o' characters
+let newString = string.replace(/o/g, '');
+
+// Removing all spaces
+let newString = string.split(' ').join('');
+
+// Removing the first 5 characters:
+let newString = string.slice(5);
+
+// Removing the last 3 characters from a string
+let newString = string.slice(0, -3);

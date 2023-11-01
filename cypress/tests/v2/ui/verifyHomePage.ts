@@ -1,40 +1,56 @@
 import { Pages } from "../../../support/pageObjects/Pages"
 import { negativeOrPositiveAmountWrapper } from "../../../support/helpers/HelpMethods";
 import testData from "../../../support/testData/testDataExistingUser.json"
+import { ApiObjectBase } from "../../../support/apiObjects/apiObjectBase"
+import * as apiHelpers from "../../../support/helpers/v2/api/apiHelpers"
+import * as helpers from "../../../support/helpers/v2/ui/verifyHomePage.helper"
 
 
 let pages = new Pages();
-
+let apiObjectBase = new ApiObjectBase()
 
 describe('Verify Home page', () => {
 
+    let postFixName1 = (new Date().toISOString()).slice(14).split('').filter(a => !['.', ':', 'Z'].includes(a)).join('') + '1';
+    let postFixName2 = (new Date().toISOString()).slice(14).split('').filter(a => !['.', ':', 'Z'].includes(a)).join('') + '2';
+    let amountUser1ToUser2 = 2100;
+    let amountUser2ToUser1 = 1100;
+
     beforeEach('Preconditions', () => {
+
+        apiObjectBase.createUserAPI.createUserRequest(testData.userName + postFixName1, testData.firstName + postFixName1, testData.lastName + postFixName1, testData.password)
+        apiObjectBase.createUserAPI.createUserRequest(testData.userName + postFixName2, testData.firstName + postFixName2, testData.lastName + postFixName2, testData.password)
+        apiHelpers.sendTransactionsBetweenUsersAPI(testData.userName + postFixName1, testData.firstName + postFixName2, '' + amountUser1ToUser2, 'test1')
+        apiHelpers.requestTransactionsBetweenUsersAPI(testData.userName + postFixName2, testData.firstName + postFixName1, '' + amountUser1ToUser2, 'test2')
+        apiHelpers.sendTransactionsBetweenUsersAPI(testData.userName + postFixName2, testData.firstName + postFixName1, '' + amountUser2ToUser1, 'test2')
+        apiHelpers.requestTransactionsBetweenUsersAPI(testData.userName + postFixName1, testData.firstName + postFixName2, '' + amountUser2ToUser1, 'test1')
+
         cy.visit('/')
-        cy.loginUI(testData.userName,testData.password)
+        cy.loginUI(testData.userName, testData.password)
     })
 
     var checkTransactionsUImatchAPI2 = function (page: number = 1) {
-        
+
         let shift = 0;
-   /*
-        const fs = require('fs');
-        let str=fs.writeFileSync("./tests/v2/ui/text1.txt","hello");
-        console.log(str)*/
-       
-     /*    while (shift<3712){
-            cy.get('[aria-label="grid"]').focus().scrollTo('0', shift)
+        /*
+             const fs = require('fs');
+             let str=fs.writeFileSync("./tests/v2/ui/text1.txt","hello");
+             console.log(str)*/
 
-            
-
-           const element = document.querySelector('div.ReactVirtualized__Grid__innerScrollContainer')!
-            const style=element.getAttribute("style")
-           
-            //const style=getComputedStyle(element)
-            console.log(style)
-
-            cy.get('[data-test="transaction-list"] [role="grid"] [role="rowgroup"]').find(`[style="height: 128px; left: 0px; position: absolute; top: ${shift}px; width: 100%;"]`).find('li div div div.MuiGrid-grid-sm-true div:nth-child(2) span.MuiTypography-root')
-        shift=shift+128;
-        }*/
+        /*    while (shift<3712){
+               cy.get('[aria-label="grid"]').focus().scrollTo('0', shift)
+   
+               
+   
+              const element = document.querySelector('div.ReactVirtualized__Grid__innerScrollContainer')!
+               const style=element.getAttribute("style")
+              
+               //const style=getComputedStyle(element)
+               console.log(style)
+   
+               cy.get('[data-test="transaction-list"] [role="grid"] [role="rowgroup"]').find(`[style="height: 128px; left: 0px; position: absolute; top: ${shift}px; width: 100%;"]`).find('li div div div.MuiGrid-grid-sm-true div:nth-child(2) span.MuiTypography-root')
+           shift=shift+128;
+           }*/
     }
 
 
@@ -91,37 +107,37 @@ describe('Verify Home page', () => {
         }
 
         pages.navigationMenu.openHomePage();
-  
+
         checkTransactionsUImatchAPI();
     })
 
 
-    it.skip('Verify transactions on MINE tab of Home Page match API', () => {
+    it.only('Verify transactions on MINE tab of Home Page match API', () => {
 
         pages.navigationMenu.openHomePage();
         cy.wait(500)
-        let n=1
-        let shift=0;
-        while(n<30){
-        cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]').find('div')
-          .find('li div div div.MuiGrid-grid-sm-true div.MuiGrid-item span').eq(n)
-          shift+=128
-        cy.get('[aria-label="grid"]').focus().scrollTo(0,shift)
-        cy.wait(500)
-        n++
+        let n = 1
+        let shift = 0;
+        while (n < 30) {
+            cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]').find('div')
+                .find('li div div div.MuiGrid-grid-sm-true div.MuiGrid-item span').eq(n)
+            shift += 128
+            cy.get('[aria-label="grid"]').focus().scrollTo(0, shift)
+            cy.wait(500)
+            n++
         }
 
-       /* pages.homePage.getTableTransactions().invoke('attr','style').then( (css)=>{
-            let array:string[]|undefined=[];
-            if (typeof(css)==='string'){
-            array=css.toString().split('; ')
-            let height=Number(array[1].split(': ')[1].slice(0,-2))
-            console.log(height)
-            cy.get('[aria-label="grid"]').focus().scrollTo('top')
-            console.log(css)
-            }
-        })
- */
+        /* pages.homePage.getTableTransactions().invoke('attr','style').then( (css)=>{
+             let array:string[]|undefined=[];
+             if (typeof(css)==='string'){
+             array=css.toString().split('; ')
+             let height=Number(array[1].split(': ')[1].slice(0,-2))
+             console.log(height)
+             cy.get('[aria-label="grid"]').focus().scrollTo('top')
+             console.log(css)
+             }
+         })
+  */
     })
 
 })

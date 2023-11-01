@@ -9,9 +9,9 @@ export class LoginUser {
           "username": `${username}`,
           "password": `${password}`
         }
-        cy.request('POST', 'http://localhost:3001/login', creds).then(response => {
+        return cy.request('POST', 'http://localhost:3001/login', creds).then(response => {
         expect(response.status).equal(200)
         expect(response.body.user.username).equal(username)
-        })
+        }).its('body.user')
     }
 }

@@ -9,7 +9,7 @@ export var negativeOrPositiveAmountWrapper = (amount: string, requestStatus: str
     return convertAmount(sign)
 }
 
- var convertAmount = function (amount: string) {
+ export var convertAmount = function (amount: string) {
     var strArr = amount.toString().split('')
     if (strArr.length >= 3) {
         strArr[strArr.length - 3] = strArr[strArr.length - 3] + '.'
