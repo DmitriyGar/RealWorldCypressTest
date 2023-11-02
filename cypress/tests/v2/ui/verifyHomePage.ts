@@ -1,6 +1,6 @@
 import { Pages } from "../../../support/pageObjects/Pages"
 import { negativeOrPositiveAmountWrapper } from "../../../support/helpers/HelpMethods";
-import testData from "../../../support/testData/testDataExistingUser.json"
+import testData from "../../../support/testData/testDataNewUser.json"
 import { ApiObjectBase } from "../../../support/apiObjects/apiObjectBase"
 import * as apiHelpers from "../../../support/helpers/v2/api/apiHelpers"
 import * as helpers from "../../../support/helpers/v2/ui/verifyHomePage.helper"
@@ -24,9 +24,12 @@ describe('Verify Home page', () => {
         apiHelpers.requestTransactionsBetweenUsersAPI(testData.userName + postFixName2, testData.firstName + postFixName1, '' + amountUser1ToUser2, 'test2')
         apiHelpers.sendTransactionsBetweenUsersAPI(testData.userName + postFixName2, testData.firstName + postFixName1, '' + amountUser2ToUser1, 'test2')
         apiHelpers.requestTransactionsBetweenUsersAPI(testData.userName + postFixName1, testData.firstName + postFixName2, '' + amountUser2ToUser1, 'test1')
-
+        apiObjectBase.loginUserAPI.loginAPI(testData.userName + postFixName1,testData.password).then(user=>{
+            apiObjectBase.addBankAccount.addBankAccountRequest(user.id,testData.bankAccountName,testData.AccountNumber,testData.routingNumber)
+        })
+        
         cy.visit('/')
-        cy.loginUI(testData.userName, testData.password)
+        cy.loginUI(testData.userName + postFixName1, testData.password)
     })
 
     var checkTransactionsUImatchAPI2 = function (page: number = 1) {
@@ -115,6 +118,7 @@ describe('Verify Home page', () => {
     it.only('Verify transactions on MINE tab of Home Page match API', () => {
 
         pages.navigationMenu.openHomePage();
+        pages.homePage.getMineTab().click()
         cy.wait(500)
         let n = 1
         let shift = 0;
