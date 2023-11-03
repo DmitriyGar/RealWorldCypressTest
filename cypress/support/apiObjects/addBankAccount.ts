@@ -10,18 +10,9 @@ export class addBankAccountAPI {
                 'Cookie': cy.getCookie('connect.sid'),
                 'Content-Type': 'application/json'
             },
-            body: `{
-                "operationName": "CreateBankAccount",
-                "query": "\n  mutation CreateBankAccount($bankName: String!, $accountNumber: String!, $routingNumber: String!) {\n    createBankAccount(\n      bankName: $bankName\n      accountNumber: $accountNumber\n      routingNumber: $routingNumber\n    ) {\n      id\n      uuid\n      userId\n      bankName\n      accountNumber\n      routingNumber\n      isDeleted\n      createdAt\n    }\n  }\n",
-                "variables": {
-                  "userId": "${userId}",
-                  "bankName": "${bankAccountName}",
-                  "accountNumber": "${accountNumber}",
-                  "routingNumber": "${routingNumber}"
-                }
-              }`
+            body: `{"operationName":"CreateBankAccount","query":"  mutation CreateBankAccount($bankName: String!, $accountNumber: String!, $routingNumber: String!) {    createBankAccount(      bankName: $bankName      accountNumber: $accountNumber      routingNumber: $routingNumber    ) {      id      uuid      userId      bankName      accountNumber      routingNumber      isDeleted      createdAt    }  }","variables":{"userId":"${userId}","bankName":"Bank Account #2","accountNumber":"000000000003","routingNumber":"000000002"}}`
         }).then(response => {
-            expect(response.status).to.equal(201)
-        }).its('response.body.user')
+            expect(response.status).to.equal(200)
+        }).its('body.data.createBankAccount')
     }
 }

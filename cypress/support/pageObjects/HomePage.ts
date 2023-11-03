@@ -1,73 +1,83 @@
 
 export class HomePage {
-    
-   private readonly getElementsHomePage = {
-            everyoneTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(0).find('.MuiTab-wrapper'),
-            friendsTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(1).find('.MuiTab-wrapper'),
-            mineTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(2).find('.MuiTab-wrapper'),
-            datePicker: () => cy.get('[data-test="transaction-list-filter-date-range-button"] span'),
-            amountSlider: () => cy.get('[data-test="transaction-list-filter-amount-range-button"]'),
-            sliderScreenLabel: ()=> cy.get('[role="presentation"]').find('[data-test="transaction-list-filter-amount-range-button"]'),
-            sliderScreenClearButton: ()=> cy.get('[role="presentation"]').find('[data-test="transaction-list-filter-amount-clear-button"] .MuiButton-label'),
-            sliderScreenStartPoint: () => cy.get('[role="slider"][data-index="0"]'),
-            sliderScreenEndPoint: () => cy.get('[role="slider"][data-index="1"]'),
-            nameSentTransaction: (n:number)=> cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
-            .find('p span').eq(0),
-            actionLabelTransaction: (n:number)=> cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
+
+    private readonly getElementsHomePage = {
+        everyoneTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(0).find('.MuiTab-wrapper'),
+        friendsTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(1).find('.MuiTab-wrapper'),
+        mineTab: () => cy.get('[role="tablist"]').find('.MuiTab-textColorInherit').eq(2).find('.MuiTab-wrapper'),
+        datePicker: () => cy.get('[data-test="transaction-list-filter-date-range-button"] span'),
+        amountSlider: () => cy.get('[data-test="transaction-list-filter-amount-range-button"]'),
+        sliderScreenLabel: () => cy.get('[role="presentation"]').find('[data-test="transaction-list-filter-amount-range-button"]'),
+        sliderScreenClearButton: () => cy.get('[role="presentation"]').find('[data-test="transaction-list-filter-amount-clear-button"] .MuiButton-label'),
+        sliderScreenStartPoint: () => cy.get('[role="slider"][data-index="0"]'),
+        sliderScreenEndPoint: () => cy.get('[role="slider"][data-index="1"]'),
+        nameSentTransaction: (n: number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]')
+            .find('div li div div div.MuiGrid-grid-sm-true div.MuiGrid-grid-xs-true')
+            .find('p.MuiTypography-body1 span:nth-child(1)').eq(n),
+        actionLabelTransaction: (n: number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
             .find('p span').eq(1),
-            nameReceivedTransaction: (n:number)=> cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
-            .find('p span').eq(2),
-            paymentLabelTransaction: (n:number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
-            .find('p span').eq(0).parent().parent().find('p').eq(1),
-            paymentPriceTransaction: (n:number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"] div').eq(n)
-            .find('li div div div.MuiGrid-grid-sm-true div.MuiGrid-item span'),
-            paymentPriceTransactionById: (id:number) => cy.get(`[data-test="transaction-amount-${id}"]`),
-            nameSentTransactionById: (id:number) => cy.get(`[data-test="transaction-sender-${id}"]`),
-            nameReceivedTransactionById: (id:number) => cy.get(`[data-test="transaction-receiver-${id}"]`),
-            paymentLabelTransactionById: (id:number) => cy.get(`[data-test="transaction-sender-${id}"]`).parent().parent()
-            .contains('p',new RegExp(`${['Payment', 'Request'].join('|')}`, 'g')),
-            tableTransactions: ()=> cy.get('[role="rowgroup"] div')
+        nameReceivedTransaction: (n: number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]')
+            .find('div li div div div.MuiGrid-grid-sm-true div.MuiGrid-grid-xs-true')
+            .find('p.MuiTypography-body1 span:nth-child(3)').eq(n),
+        paymentLabelTransaction: (n: number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]')
+            .find('div li div div div.MuiGrid-grid-sm-true div.MuiGrid-grid-xs-true')
+            .find('p.MuiTypography-body1 span:nth-child(2)').eq(n),
+        priceTransaction: (n: number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]')
+            .find('div li div div div.MuiGrid-grid-sm-true').find('div:nth-child(2)').find('span').eq(n),
+        descriptionTransaction: (n: number) => cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]')
+            .find('div li div div div.MuiGrid-grid-sm-true div.MuiGrid-grid-xs-true')
+            .find('p.MuiTypography-body2').eq(n),
+        paymentPriceTransactionById: (id: number) => cy.get(`[data-test="transaction-amount-${id}"]`),
+        nameSentTransactionById: (id: number) => cy.get(`[data-test="transaction-sender-${id}"]`),
+        nameReceivedTransactionById: (id: number) => cy.get(`[data-test="transaction-receiver-${id}"]`),
+        paymentLabelTransactionById: (id: number) => cy.get(`[data-test="transaction-sender-${id}"]`).parent().parent()
+            .contains('p', new RegExp(`${['Payment', 'Request'].join('|')}`, 'g')),
+        tableTransactions: () => cy.get('[role="rowgroup"] div')
     }
 
-    getTableTransactions(){
+    getTableTransactions() {
         return this.getElementsHomePage.tableTransactions();
     }
-/*
-    getTransaction(n:number){
-        this.getElementsHomePage.nameSentTransaction(n).should('contain','Kaylin Homenick');
-        this.getElementsHomePage.actionLabelTransaction(n).should('contain','paid');
-        this.getElementsHomePage.nameReceivedTransaction(n).should('contain','Arely Kertzmann');
-        this.getElementsHomePage.paymentLabelTransaction(n).should('contain','Payment');
-        this.getElementsHomePage.paymentPriceTransaction(n).invoke('prop', 'innerText').should('equal','-$80.31');
-    }
-*/
-    getPaymentLabelTransactionById(id:number){
-        return this.getElementsHomePage.paymentLabelTransactionById(id)
-     }
 
-     getPaymentLabelTransaction(id:number){
+    getNameSentTransaction(id: number) {
+        return this.getElementsHomePage.nameSentTransaction(id)
+    }
+
+    getNameReceivedTransaction(id: number) {
+        return this.getElementsHomePage.nameReceivedTransaction(id)
+    }
+
+    getPaymentLabelTransaction(id: number) {
         return this.getElementsHomePage.paymentLabelTransaction(id)
-     }
-
-    getNameSentTransactionById(id:number){
-       return this.getElementsHomePage.nameSentTransactionById(id)
     }
 
-    getNameReceivedTransactionById(id:number){
+    getDescriptionTransaction(id: number) {
+        return this.getElementsHomePage.descriptionTransaction(id)
+    }
+
+    getPaymentLabelTransactionById(id: number) {
+        return this.getElementsHomePage.paymentLabelTransactionById(id)
+    }
+
+    getNameSentTransactionById(id: number) {
+        return this.getElementsHomePage.nameSentTransactionById(id)
+    }
+
+    getNameReceivedTransactionById(id: number) {
         return this.getElementsHomePage.nameReceivedTransactionById(id)
-     }
+    }
 
-    getPaymentPriceTransactionValueById(id:number){
+    getPaymentPriceTransactionValueById(id: number) {
         return this.getElementsHomePage.paymentPriceTransactionById(id)
-     }
+    }
 
-     getPaymentPriceTransaction(id:number){
-        return this.getElementsHomePage.paymentPriceTransaction(id)
-     }
+    getPriceTransaction(id: number) {
+        return this.getElementsHomePage.priceTransaction(id)
+    }
 
-    getSelectedTab(){
+    getSelectedTab() {
         cy.log('Determine selected tab')
-       return cy.get('[role="tablist"]').find('.Mui-selected').find('.MuiTab-wrapper')
+        return cy.get('[role="tablist"]').find('.Mui-selected').find('.MuiTab-wrapper')
     }
 
     getEveryoneTab() {
@@ -109,7 +119,7 @@ export class HomePage {
         cy.log('Get amount slider')
         return this.getElementsHomePage.sliderScreenLabel()
     }
-    
+
     getSliderScreenClearButton() {
         cy.log('Get amount slider')
         return this.getElementsHomePage.sliderScreenClearButton()

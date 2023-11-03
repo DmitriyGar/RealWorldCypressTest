@@ -12,7 +12,7 @@ export function sendTransactionsBetweenUsersAPI(username1: string, firstName2: s
                     for (let item of results) {
                         if (item.firstName == firstName2) {
                             cy.wrap(item.id).then(id => {
-                                apiObjectBase.sendGetTransactions.sendTransaction(xhr1.id, String(id), amount)
+                                apiObjectBase.sendGetTransactions.sendTransaction(xhr1.id, String(id), amount, description)
                             })
                         }
                     }
@@ -30,7 +30,7 @@ export function requestTransactionsBetweenUsersAPI(username1: string, firstName2
                     for (let item of results) {
                         if (item.firstName == firstName2) {
                             cy.wrap(item.id).then(id => {
-                                apiObjectBase.sendGetTransactions.requestTransaction(xhr1.id, String(id), amount)
+                                apiObjectBase.sendGetTransactions.requestTransaction(xhr1.id, String(id), amount, description)
                             })
                         }
                     }

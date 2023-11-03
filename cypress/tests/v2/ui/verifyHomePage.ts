@@ -15,48 +15,25 @@ describe('Verify Home page', () => {
     let postFixName2 = (new Date().toISOString()).slice(14).split('').filter(a => !['.', ':', 'Z'].includes(a)).join('') + '2';
     let amountUser1ToUser2 = 2100;
     let amountUser2ToUser1 = 1100;
+    let testDescription1 = 'test description1';
+    let testDescription2 = 'test description2';
 
     beforeEach('Preconditions', () => {
 
         apiObjectBase.createUserAPI.createUserRequest(testData.userName + postFixName1, testData.firstName + postFixName1, testData.lastName + postFixName1, testData.password)
         apiObjectBase.createUserAPI.createUserRequest(testData.userName + postFixName2, testData.firstName + postFixName2, testData.lastName + postFixName2, testData.password)
-        apiHelpers.sendTransactionsBetweenUsersAPI(testData.userName + postFixName1, testData.firstName + postFixName2, '' + amountUser1ToUser2, 'test1')
-        apiHelpers.requestTransactionsBetweenUsersAPI(testData.userName + postFixName2, testData.firstName + postFixName1, '' + amountUser1ToUser2, 'test2')
-        apiHelpers.sendTransactionsBetweenUsersAPI(testData.userName + postFixName2, testData.firstName + postFixName1, '' + amountUser2ToUser1, 'test2')
-        apiHelpers.requestTransactionsBetweenUsersAPI(testData.userName + postFixName1, testData.firstName + postFixName2, '' + amountUser2ToUser1, 'test1')
-        apiObjectBase.loginUserAPI.loginAPI(testData.userName + postFixName1,testData.password).then(user=>{
-            apiObjectBase.addBankAccount.addBankAccountRequest(user.id,testData.bankAccountName,testData.AccountNumber,testData.routingNumber)
+        apiHelpers.sendTransactionsBetweenUsersAPI(testData.userName + postFixName1, testData.firstName + postFixName2, '' + amountUser1ToUser2, testDescription1)
+        apiHelpers.requestTransactionsBetweenUsersAPI(testData.userName + postFixName2, testData.firstName + postFixName1, '' + amountUser1ToUser2, testDescription2)
+        apiHelpers.sendTransactionsBetweenUsersAPI(testData.userName + postFixName2, testData.firstName + postFixName1, '' + amountUser2ToUser1, testDescription1)
+        apiHelpers.requestTransactionsBetweenUsersAPI(testData.userName + postFixName1, testData.firstName + postFixName2, '' + amountUser2ToUser1, testDescription2)
+        apiObjectBase.loginUserAPI.loginAPI(testData.userName + postFixName1, testData.password).then(user => {
+            apiObjectBase.addBankAccount.addBankAccountRequest(user.id, testData.bankAccountName, testData.AccountNumber, testData.routingNumber)
         })
-        
+
         cy.visit('/')
-        cy.loginUI(testData.userName + postFixName1, testData.password)
+        cy.loginUI(testData.userName + postFixName1, testData.password) 
+        cy.wait(1000)
     })
-
-    var checkTransactionsUImatchAPI2 = function (page: number = 1) {
-
-        let shift = 0;
-        /*
-             const fs = require('fs');
-             let str=fs.writeFileSync("./tests/v2/ui/text1.txt","hello");
-             console.log(str)*/
-
-        /*    while (shift<3712){
-               cy.get('[aria-label="grid"]').focus().scrollTo('0', shift)
-   
-               
-   
-              const element = document.querySelector('div.ReactVirtualized__Grid__innerScrollContainer')!
-               const style=element.getAttribute("style")
-              
-               //const style=getComputedStyle(element)
-               console.log(style)
-   
-               cy.get('[data-test="transaction-list"] [role="grid"] [role="rowgroup"]').find(`[style="height: 128px; left: 0px; position: absolute; top: ${shift}px; width: 100%;"]`).find('li div div div.MuiGrid-grid-sm-true div:nth-child(2) span.MuiTypography-root')
-           shift=shift+128;
-           }*/
-    }
-
-
 
     it('Verify UI elements presence on Home Page', () => {
         pages.navigationMenu.openHomePage();
@@ -114,20 +91,90 @@ describe('Verify Home page', () => {
         checkTransactionsUImatchAPI();
     })
 
+    it('Verify filtering of transactions by Amount range on EVERYONE tab', () => {
+        cy.log('filter between 100 and 130')
+        pages.homePage.getAmountSlider().click({force: true})
+        for(let i=0;i<4;i++)
+        pages.homePage.getAmountSliderStartPoint().click(10, 0, { force: true })
+        for(let i=0;i<31;i++)
+        pages.homePage.getAmountSliderEndPoint().click(0, 10, { force: true })
+        cy.wait(1000)
+        pages.homePage.getTableTransactions().find('li div div div.MuiGrid-grid-sm-true').each(item =>{
+            cy.wrap(item).find(':nth-child(2)').eq(3).find('span').then(price =>{
+                let str=Number(price.text().slice(2))
+                expect(str).greaterThan(100).and.lessThan(130)
+            })
+        })
+    })
 
-    it.only('Verify transactions on MINE tab of Home Page match API', () => {
+    it('Verify filtering between 450 and 520 then Clear filter on EVERYONE tab',  () => {
+        cy.log('filter between 450 and 520')
+        pages.homePage.getAmountSlider().click({force: true})
+        for(let i=0;i<22;i++){
+        pages.homePage.getAmountSliderStartPoint().click(10, 0, { force: true })
+        }
+        for(let i=0;i<16;i++)
+        pages.homePage.getAmountSliderEndPoint().click(0, 7, { force: true })
+        cy.wait(1000)
+        pages.homePage.getTableTransactions().find('li div div div.MuiGrid-grid-sm-true').each(item =>{
+            cy.wrap(item).find(':nth-child(2)').eq(3).find('span').then(price =>{
+                let str=Number(price.text().slice(2))
+                expect(str).greaterThan(450).and.lessThan(520)
+                cy.get('[aria-label="grid"]').focus().scrollTo(0,128,{ensureScrollable: false})
+            })
+        })
+
+        pages.homePage.getSliderScreenClearButton().click().wait(1000)
+        pages.homePage.getSliderScreenLabel().should('contain','$0 - $1,000')
+        pages.homePage.getTableTransactions().find('li div div div.MuiGrid-grid-sm-true').each(item =>{
+            cy.wrap(item).find(':nth-child(2)').eq(3).find('span').then(price =>{
+                let str=Number(price.text().slice(2))
+                expect(str).greaterThan(0).and.lessThan(1000)
+                cy.get('[aria-label="grid"]').focus().scrollTo(0,128,{ensureScrollable: false})
+            })
+        })
+    })
+
+    it.only('Verify transactions on MINE tab of Home Page', () => {
 
         pages.navigationMenu.openHomePage();
         pages.homePage.getMineTab().click()
         cy.wait(500)
-        let n = 1
-        let shift = 0;
-        while (n < 30) {
-            cy.get('[data-test="transaction-list"]').find('[role="rowgroup"]').find('div')
-                .find('li div div div.MuiGrid-grid-sm-true div.MuiGrid-item span').eq(n)
-            shift += 128
-            cy.get('[aria-label="grid"]').focus().scrollTo(0, shift)
-            cy.wait(500)
+        let n = 0
+        while (n < 4) {
+            if (n == 0) {
+                pages.homePage.getNameSentTransaction(n)
+                    .should('contain', testData.firstName + postFixName1 + ' ' + testData.lastName + postFixName1)
+                pages.homePage.getPriceTransaction(n).invoke('prop', 'innerText').should('contain', '+$1,100.00')
+                pages.homePage.getPaymentLabelTransaction(n).should('contain', 'requested')
+                pages.homePage.getNameReceivedTransaction(n)
+                    .should('contain', testData.firstName + postFixName2 + ' ' + testData.lastName + postFixName2)
+                pages.homePage.getDescriptionTransaction(n).should('have.text', testDescription2)
+            } else if (n == 1) {
+                pages.homePage.getNameSentTransaction(n)
+                    .should('contain', testData.firstName + postFixName2 + ' ' + testData.lastName + postFixName2)
+                pages.homePage.getPriceTransaction(n).invoke('prop', 'innerText').should('contain', '-$1,100.00')
+                pages.homePage.getPaymentLabelTransaction(n).should('contain', 'paid')
+                pages.homePage.getNameReceivedTransaction(n)
+                    .should('contain', testData.firstName + postFixName1 + ' ' + testData.lastName + postFixName1)
+                pages.homePage.getDescriptionTransaction(n).should('have.text', testDescription1)
+            } else if (n == 2) {
+                pages.homePage.getNameSentTransaction(n)
+                    .should('contain', testData.firstName + postFixName2 + ' ' + testData.lastName + postFixName2)
+                pages.homePage.getPriceTransaction(n).invoke('prop', 'innerText').should('contain', '+$2,100.00')
+                pages.homePage.getPaymentLabelTransaction(n).should('contain', 'requested')
+                pages.homePage.getNameReceivedTransaction(n)
+                    .should('contain', testData.firstName + postFixName1 + ' ' + testData.lastName + postFixName1)
+                pages.homePage.getDescriptionTransaction(n).should('have.text', testDescription2)
+            } else if (n == 3) {
+                pages.homePage.getNameSentTransaction(n)
+                    .should('contain', testData.firstName + postFixName1 + ' ' + testData.lastName + postFixName1)
+                pages.homePage.getPriceTransaction(n).invoke('prop', 'innerText').should('contain', '-$2,100.00')
+                pages.homePage.getPaymentLabelTransaction(n).should('contain', 'paid')
+                pages.homePage.getNameReceivedTransaction(n)
+                    .should('contain', testData.firstName + postFixName2 + ' ' + testData.lastName + postFixName2)
+                pages.homePage.getDescriptionTransaction(n).should('have.text', testDescription1)
+            }
             n++
         }
 
