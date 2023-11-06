@@ -19,5 +19,5 @@
     "noUnusedParameters":false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "scripts", "backend", "src/__tests__"]
+  "include": ["src", "scripts", "backend", "src/__tests__", "@simonsmith/cypress-image-snapshot/types"]
 }

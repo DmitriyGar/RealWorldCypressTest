@@ -58,6 +58,7 @@
     "@cypress/instrument-cra": "1.4.0",
     "@faker-js/faker": "6.1.2",
     "@percy/cypress": "2.3.4",
+    "@simonsmith/cypress-image-snapshot": "^9.0.1",
     "@types/bcryptjs": "2.4.2",
     "@types/bluebird": "3.5.36",
     "@types/connect-flash": "0.0.37",

@@ -178,6 +178,7 @@ describe('Verify Home page', () => {
             n++
         }
 
+        
         /* pages.homePage.getTableTransactions().invoke('attr','style').then( (css)=>{
              let array:string[]|undefined=[];
              if (typeof(css)==='string'){

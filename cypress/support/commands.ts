@@ -394,3 +394,9 @@ Cypress.Commands.add("loginUI", (username:string=testData.userName, password:str
 })
 
 })
+
+import {addMatchImageSnapshotCommand} from '@simonsmith/cypress-image-snapshot/command';
+
+  addMatchImageSnapshotCommand({
+    customSnapshotsDir: `/cypress/e2e/snapshots/${Cypress.spec.name}`
+    })

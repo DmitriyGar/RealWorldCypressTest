@@ -74,6 +74,7 @@ export function resultMultiply(number1, number2){
 	//file2:
 import {resultMultiply}  from '../helpers/helpers.js'
 resultMultiply(5,7)
+
 ********************************
 
 //Importing everything:
@@ -224,6 +225,7 @@ it.only('next test',() => {
         cy.wrap(firstForm).find('[for="inputEmail1"]').should('contain','Email')
     })
 })
+
 *************************************************************
 
 Methods:
@@ -496,6 +498,309 @@ Getters and Setters
 get and set - should be added before functions inside objects to get or set the value
 
 ***********************************************************
+
+API:
+
+cy.intercept() - set this command before ui steps to intercept each request
+
+////////
+it ('api test', () =>{ 
+cy.intercept('POST','https://api.realworld.io/api/articles/').as('postArticles')
+
+cy.get('login').type('username)
+cy.get('password').type(password)
+cy.get('submit').click()
+
+// v1: "cy.wait('@postArticles').then (xhr =>{" or v2:
+cy.wait('@postArticles')
+	cy.get('@postArticles').then (xhr =>{
+		console.log(xhr)
+	expect(xhr.response.statusCode).to.equal(200)
+	expect(xhr.request.body.article.body).to.equal('body of article...')
+	expect(xhr.response.body.article.description).to.equal('description...')
+	}
+)}
+////////
+
+cy.intercept('GET', 'http://localhost:3001/transactions/public', { fixture: 'test_transactions.json' }).as('getTransaction')
+
+////////
+
+cy.intercept('POST', '**/transactions', req => {
+
+            req.reply(res => {
+                expect(res.body.transaction.description).to.equal(description)
+                req.body.description = 'TEST1234'
+                res.body.transaction.description = "TEST123"
+            })
+        }).as('postTransaction')
+		
+////////
+
+***********************************************************
+
+API - request:
+
+////////
+const transId='183VHWyuQMS'
+const comment='comment12'
+cy.request({
+            url: 'http://localhost:3001/comments/'+transId,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text/plain, */*',
+            },
+            body: `{"transactionId":"183VHWyuQMS","content":"${comment}"}`
+        }).then(response => {
+            expect(response.status).to.equal(200)
+        })
+
+////////
+API - Local storage
+
+cy.request('POST', 'https://product/io/api/users/login', userCredentials)
+.its('body').then(body =>{
+const token = body.user.token
+cy.wrap(token).as('token')
+cy.visit('/', {
+win.localStorage.setItem('jwtToken',token)
+})
+)}
+
+**************************************************************
+
+Cypress CLI:
+
+1. Run Cypress tests in Chrome:
+	npx cypress run --browser chrome
+	
+2. Run specific test:
+	npx cypress run --spec "sypress/integration/test2.js"
+	
+3. enable/disable video recording:
+	Open cypress.json or cypress.config.ts -> after 'vewPortWith' add "video": false
+	
+4. add own commands for running cypress via NPM:
+	Open package.json -> in "script" section add parametr with command ->
+	-> "cypress:run": "npx cypress run" -> in the terminal type npm run cypress:run ->
+	'npx cypress run' will be executed
+	
+*************************************************************
+
+Reporting
+
+1. Open https://docs.cypress.io/guides/tooling/reporters (multiple reporters section)
+2. Examples: install reporters	
+	npm install --save-dev cypress-multi-reporters mocha-junit-reporter
+3. Add to 'cypress.config.ts' :
+	export default defineConfig({
+  reporter: 'cypress-multi-reporters',
+  reporterOptions: {
+    configFile: 'reporter-config.json',
+  },
+4. Create 'reporter-config.json' file in root of project
+5. Paste into 'reporter-config.json':
+	import { defineConfig } from 'cypress'
+   export default defineConfig({
+   reporterEnabled: 'spec, mocha-junit-reporter',
+   mochaJunitReporterReporterOptions: {
+    mochaFile: 'cypress/results/results-[hash].xml',
+    },
+   })
+6. remove 'spec' in 'reporter-config.json' and modify path if want to save reports into another folder: 
+	mochaFile: 'cypress/results/junit/results-[hash].xml'
+7. Add into 'package.json' to scripts section deleting reports before run test:
+	{
+	"scripts": {
+		"delete:reports": "rm cypress/results/* || true",
+		"prereport": "npm run delete:reports",
+		"report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json"
+	}
+	}
+8. install mochawesome reporter:
+	npm install --save-dev mochawesome mochawesome-merge mochawesome-report-generator
+	where:
+	mochawesome: it is reporter
+	mochawesome-merge: it is merging reports into single report
+	mochawesome-report-generator: to generate html report
+9. install junit-merge to merge junit reports into single file:
+	npm install -g junit-merge
+	
+10. Add next configuration into 'reporter-config.json' file:
+	import { defineConfig } from 'cypress'
+	reporterEnabled: 'mocha-junit-reporter, mochawesome',
+	mochaJunitReporterReporterOptions: {
+    mochaFile: 'cypress/results/results-[hash].xml',
+    },
+	reporterOptions: {
+    reportDir: 'cypress/results/mochawesome',
+    overwrite: false,
+    html: false,
+    json: true,
+  },
+})
+11. Merge single files into one report (mochawesome and results):
+Create into 'package.json' in script section next subscripts:
+	"mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",
+    "junit:merge": "npx junit-merge -d cypress/results/junit -o cypress/results/junit/result.xml",
+then add script there for running both types of reports:
+	"cypress:report": "npm run junit:merge && npm run mochawesome:merge",
+also make sure that added script for deletion of reports:
+	 "delete:reports": "yarn del \"cypress/results/junit/*\" --force",
+then add script to run specific test
+	"cypress:test":"cypress run --spec \"cypress/tests/v2/api/*\"",
+and script for running test with deletion reports before and generation of reports after test running:
+	"cypress:e2e": "npm run delete:reports && npm run cypress:test && npm run cypress:report",
+   
+12. Run test with reports:
+	npm run cypress:e2e
+	
+	
+*********************************************************
+
+Cross browser testing
+
+1. add command in the <script> section of 'package.json':
+ run in the HEADLESS mode:
+	"cy:run_spec": "npx cypress run --spec 'cypress/e2e/test1.spec.js'"
+	
+ run test in edge browser in the headless mode:
+	"cy:run_spec": "npx cypress run --spec 'cypress/e2e/test1.spec.js' --browser edge"
+ run test in firefox browser in the HEADED mode:	
+	"cy:run_spec": "npx cypress run --spec 'cypress/e2e/test1.spec.js' --browser firefox --headed"
+	
+2. run specific test in different browser => add the next in test:
+
+		it ('test2', {browser: 'chrome'}, () =>{
+		//steps
+		)
+ in this case if tests will be run in firefox browser test with different browser will be skipped
+
+3. avoid to run in some browser specific test:
+		it ('test2', {browser: '!chrome'}, () =>{
+		//steps
+		)
+ in this case if tests will be run in any browser test with specified  browser with '!' will be skipped if test is run in this browser
+
+4. Run test in Webkit browser engine:
+
+   - add "experimentalWebKitSupport": true to cypress.config file
+   - install playwright-webkit: 
+		npm install --save-dev playwright-webkit
+   - run test with using WebKit:
+		npx cypress run --spec 'cypress/e2e/test1.spec.js' --browser webkit --headed
+		
+*************************************************************
+
+Shadow DOM:
+
+if some element (e.g. 'id=container') in DOM is located inside of shadow root ('#shadow-root') to access that element we need to get shadow host element before root and add shadow():
+
+cy.visit('https://www.test.io/open)
+
+cy.get('#app').shadow().find('#container')
+
+***************************************************************
+
+Dashboard: 
+
+1. go to cypress web site and log in
+2. Open cypress web runner from terminal: "npx cypress open"
+3. Click Runs -> Setup project to record -> Log in to Dashboard -> Set project
+4. Copy project id from runner and paste into cypress.config
+5. copy "--record --key xxxxxxx" and paste into script for executing test ( e.g. into 'cypress:e2e' command) 
+6. To record vide add into cypress.config.json: "video":true
+7. Run test and see dashboard on web
+
+
+A few browsers in parallel and show on dashboard:
+
+"cy:run_browser":"npm run cy:run_spec -- --browser firefox --group Firefox --ci-build-id 1 & npm run cy:run_spec -- --browser chrome --group Chrome --ci-build-id 1"
+
+
+Parallel testing using CI:
+
+1. Prepare "jenkins" file
+	pipeline {
+	agent anytools {nodejs "node"}
+	stages {
+		stage ('cypress parallel tests') {
+		parallel {
+		stage ('Tester A'){
+		steps {
+		sh "npm run cy:run"
+		}
+		}
+		stage ('Tester B'){
+		agent {
+			label "mac"
+		}
+		steps {
+		sh "npm run cy:run"
+		}
+		} 
+		}
+		}
+	}
+	}
+	
+2. Add --parallel into run command of package.json file:
+	"cy:run:": "npx cypress run --headless --record --key xxxxxxx --parallel"
+ (when running from CICD --ci-build-id flag should not be used)
+3. Open jenkins and run build
+
+**************************************************************
+
+Visual testing (cypress-image-snapshot) 
+https://github.com/simonsmith/cypress-image-snapshot
+
+1. Install  cypress-image-snapshot
+	npm install --save-dev @simonsmith/cypress-image-snapshot
+	
+2. Add the following into the cypress.config.json
+	const {addMatchImageSnapshotPlugin} = require('@simonsmith/cypress-image-snapshot/plugin')
+
+	module.exports = defineConfig({	
+	e2e: {
+    baseUrl: 'http://localhost:4200',
+    setupNodeEvents(on) {
+      addMatchImageSnapshotPlugin(on)
+    },
+	supportFile: 'cypress/support/index.js'
+	}
+	});
+	
+3. Make sure that index.js contains "import './commands.js';"
+
+4. Add the following to commands.js:
+	import {addMatchImageSnapshotCommand} from '@simonsmith/cypress-image-snapshot/command';
+
+	addMatchImageSnapshotCommand();
+
+5. Ensure that the types are included in your 'tsconfig.json'
+	{
+	"compilerOptions": {
+		// ...
+	},
+	"include": ["@simonsmith/cypress-image-snapshot/types"]
+	}
+
+6. Run test wit the following:
+	 cy.get('body').then(body =>{
+            cy.wait(1000)
+            cy.wrap(body).matchImageSnapshot('homePage')
+        })
+		
+When test is run firstly the expected screenshots are created with names but the next run compares files.
+To apply custom path for snapshots add the following into the 'command.js' file:
+
+	addMatchImageSnapshotCommand({
+	customSnapshotsDir: `/cypress/e2e/snapshots/${Cypress.spec.name}`
+	})
+	
+	
+*******************************************************************
 
 Try and Catch
 
