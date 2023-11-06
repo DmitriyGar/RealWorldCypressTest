@@ -166,6 +166,9 @@ it('first test', ()=> {
 		//by children
 		cy.get('div[class="offset-sm-3 col-sm-9"').children('button[status="primary"]')
         
+		//Gets the 2nd child in td column
+		cy.get("tr td:nth-child(2)")       
+		
 		//by parent	 
 		cy.get('button[status="primary"]').parent('div[class="offset-sm-3 col-sm-9"')
 		

@@ -1,10 +1,9 @@
 describe('Run jinny script', () => {
     it('run run run', () => {
-       // checkNewVacancy('Magento /Ecommerce QA', 'SOFTLOFT')
-       runBotCheckVacancy()
+        runBotCheckVacancy()
     })
 
-    function runBotCheckVacancy(){
+    function runBotCheckVacancy() {
         cy.visit('https://djinni.co/jobs/?primary_keyword=QA&region=UKR&salary=2500')
         cy.get('ul.list-jobs').find('li').eq(0).then(vacancyItem => {
             cy.wrap(vacancyItem).find('div header div:nth-child(2)  div:nth-child(1) a').invoke('text')
@@ -13,15 +12,11 @@ describe('Run jinny script', () => {
                         .then((firstCompany) => {
                             checkNewVacancy(firstVacancy, firstCompany)
                         })
-
                 })
         })
-        
-    
     }
 
     function checkNewVacancy(vacancyName: string, CompanyName: string) {
-
         cy.visit('https://djinni.co/jobs/?primary_keyword=QA&region=UKR&salary=2500')
         cy.get('ul.list-jobs').find('li').eq(0).then(vacancyItem => {
             cy.wrap(vacancyItem).find('div header div:nth-child(2)  div:nth-child(1) a').invoke('text')
@@ -32,6 +27,7 @@ describe('Run jinny script', () => {
                             cy.log('VacancyAct: ' + nameVacancy + '   CompanyAct: ' + nameCompany)
                             if (nameVacancy.trim().toLowerCase() != vacancyName.trim().toLowerCase()
                                 && nameCompany.trim().toLowerCase() != CompanyName.trim().toLowerCase()) {
+                            cy.log('MATCHED!')
                                 play()
                                 cy.wait(5000)
                                 return;
@@ -39,10 +35,8 @@ describe('Run jinny script', () => {
                             cy.wait(10000)
                             checkNewVacancy(vacancyName, CompanyName)
                         })
-
                 })
         })
-        
     }
 
     function play() {
