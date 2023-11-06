@@ -786,7 +786,7 @@ https://github.com/simonsmith/cypress-image-snapshot
 	"include": ["@simonsmith/cypress-image-snapshot/types"]
 	}
 
-6. Run test wit the following:
+6. Run test with the following:
 	 cy.get('body').then(body =>{
             cy.wait(1000)
             cy.wrap(body).matchImageSnapshot('homePage')
