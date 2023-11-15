@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-11-14T14:17:08.071Z",
+    "end": "2023-11-14T14:38:38.382Z",
+    "duration": 1290311,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "44a0f6fd-31e8-4e79-ae97-07d637e034dc",
+      "title": "",
+      "fullFile": "cypress\\tests\\v2\\ui\\djinnyVacancies.ts",
+      "file": "cypress\\tests\\v2\\ui\\djinnyVacancies.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "86397ed8-49ea-4207-8354-5d0021812dbe",
+          "title": "Run jinny script",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "run run run",
+              "fullTitle": "Run jinny script run run run",
+              "timedOut": null,
+              "duration": 1286514,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "runBotCheckVacancy();",
+              "err": {},
+              "uuid": "b7742855-35e3-4323-808e-aa14be075e98",
+              "parentUUID": "86397ed8-49ea-4207-8354-5d0021812dbe",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b7742855-35e3-4323-808e-aa14be075e98"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1286514,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results",
+        "overwrite": "false",
+        "html": "true",
+        "json": "true"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

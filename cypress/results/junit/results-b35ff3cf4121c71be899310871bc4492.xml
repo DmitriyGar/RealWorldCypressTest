@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="1229.786" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2023-11-14T13:40:20" tests="0" file="cypress\tests\v2\ui\djinnyVacancies.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Run jinny script" timestamp="2023-11-14T13:40:20" tests="1" time="1229.783" failures="1">
+    <testcase name="Run jinny script run run run" time="0.000" classname="run run run">
+      <failure message="`cy.screenshot()` timed out waiting `50000ms` to complete." type="CypressError"><![CDATA[CypressError: `cy.screenshot()` timed out waiting `50000ms` to complete.
+    at https://djinni.co/__cypress/runner/cypress_runner.js:134558:73
+    at tryCatcher (https://djinni.co/__cypress/runner/cypress_runner.js:1807:23)
+    at https://djinni.co/__cypress/runner/cypress_runner.js:4186:41
+    at tryCatcher (https://djinni.co/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (https://djinni.co/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (https://djinni.co/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (https://djinni.co/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (https://djinni.co/__cypress/runner/cypress_runner.js:1697:18)
+    at _drainQueueStep (https://djinni.co/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (https://djinni.co/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (https://djinni.co/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (https://djinni.co/__cypress/runner/cypress_runner.js:2286:14)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

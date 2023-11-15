@@ -3,7 +3,8 @@
 let name = "John";
 let text = `Welcome, ${name}`;
 
-********************************
+*******************************************************
+
  Data types: 
 - string
 - number
@@ -11,7 +12,8 @@ let text = `Welcome, ${name}`;
 - null
 - undefined
 
-********************************
+********************************************************
+
  Objects:
 
 var customer = {
@@ -19,28 +21,49 @@ firstName: 'John',
 lastName: 'Smith'
 }
 
-********************************
+customer.firstName = 'Mike'  //Dot notation
+
+customer['lastName'] = 'Silver' //Bracket notation
+
+********************************************************
+
  Arrays:
 
 var car = ["volvo", "toyota", "honda"]
+car[1] = "BMW"
 console.log(car[0])
+
+*******************************
+
+Object with Array:
+
+var customer = {
+firstName: 'John',
+lastName: 'Smith',
+cars = ["volvo", "toyota", "honda"]
+}
+
+console.log(customer.cars[0])
+
 ********************************
 
- for of loop:
+ for of loop (es5 syntax):
 
 var cars = ["volvo", "toyota", "honda"]
 for (let car of cars){
 console.log(car)
 }
+
 ********************************
 
- for Each:
+ for Each (es6 syntax):
 
 var cars = ["volvo", "toyota", "honda"]
 cars.forEach( car => {
 console.log(car)} )
 
-********************************
+***********************************************************
+
  Functions:
 
 //Declaritive:
@@ -82,168 +105,40 @@ resultMultiply(5,7)
 import * as helpers from '../helpers/helpers.js'
 helpers.resultMultiply(2,3)
 
-********************************
+****************************************************************
 
-Load project:
-
-1. git clone
-
-2. open project in VS Code 
-
-3. terminal -> npm install -force
-
-4. terminal -> npm start (App is loaded)
-
-5. terminal -> npm install cypress --save-dev
-
-6. Config cypress in the progect (cypress.config.js)
-
-7. terminal -> npx cypress open (Cypress is loaded)
-
-******************************************
-
-describe('Our First Suite', ()=>{
-
-    describe('Our suite section', () => {
-
-        beforeEach('code before each test', () =>{
-            //code
-        })
-
-        it('some test', ()=> {
-
-        })  
-    })
-
-    it('first test', ()=> {
-
-    })  
-})
-
-describe() / context() - every spec file starts with it, description what to test
-beforeEach() - preconditions for every test
-it() - test
-
-********************************************
-
-Set web elements / locators
-
-it('first test', ()=> {
-
-		//by Tag name
-        cy.get('input')
-        
-        //by ID
-        cy.get('#inputEmail')
-
-        //by Class name
-        cy.get('.input-full-width')
-
-        //by Class value
-        cy.get('[class="input-full-width size-medium shape-rectangle"]')
-
-        //by Attribute name
-        cy.get('[placeholder]')
-
-        //by Attribute name and value
-        cy.get('[placeholder="Email"]')
-
-        //by Tag name and Attribute with value
-        cy.get('input[placeholder="Email"]')
-
-        //by two different attributes
-        cy.get('[placeholder="Email"][fullwidth]')
-
-        //by tag name, Attribute with value, ID and Class name
-         cy.get('input[placeholder="Email"]#inputEmail.input-full-width')
-
-        //the most recommended way by Cypress (via added own attributes into the app)
-        cy.get('[data-cy="imputEmail1"]')
-		
-		// by contains 
-		cy.contains('[id=Email]','Form Layouts')
-		
-		//by children
-		cy.get('div[class="offset-sm-3 col-sm-9"').children('button[status="primary"]')
-        
-		//Gets the 2nd child in td column
-		cy.get("tr td:nth-child(2)")       
-		
-		//by parent	 
-		cy.get('button[status="primary"]').parent('div[class="offset-sm-3 col-sm-9"')
-		
-		//by find parent and to find button in that parent
-		cy.get('#inputEmail3').parents('form').find('button')
-		
-		//with assertion 
-		cy.get('#inputEmail3').parents('form').find('button').should('contain','Sign in')
-		
-		//traveling in DOM
-		cy.get('#inputEmail3')
-        .parents('form')
-        .find('button')
-        .should('contain','Sign in')
-        .parents('form')
-        .find('nb-checkbox')
-        .click()
-
-
-}) 
-
-*************************************************************
-
-Run test
-
- it('first test', ()=> {
-        
-		//open the app via Cypress with root path of the app
-        cy.visit('/')                 
-		
-		// click at any element contains 'Forms'
-        cy.contains('Forms').click()      
-		
-		// click at any element contains 'Form Layouts'
-        cy.contains('Form Layouts').click()
-
-        //by Tag name
-        cy.get('input')
-		
-************************************************************
-
-//Then and Wrap methods:
-
-it.only('next test',() => {
-    cy.visit('/')
-    cy.contains('Forms').click();
-    cy.contains('Form Layouts').click()
-
-    cy.contains('nb-card','Using the Grid').then(firstForm => {
-        //JQuery format:
-        const emailLabelFirst = firstForm.find('[for="inputEmail1"]').text()
-        const passwordLabelFirst = firstForm.find('[for="inputPassword2"]').text()
-        expect(emailLabelFirst).to.equal('Email')
-        expect(passwordLabelFirst).to.equal('Password')
-
-        //wrap into CY
-        cy.wrap(firstForm).find('[for="inputEmail1"]').should('contain','Email')
-    })
-})
-
-*************************************************************
-
-Methods:
+Classes/Methods:
 Methods are functions that are stored as object properties. 
+class Person {
+	
+	//method
+	printFirstName(firstName){
+	console.log(firstName)
+	}
 
-function person(name, age) {
-  this.name = name;  
-  this.age = age;
-  this.changeName = function (name) {
-    this.name = name;
-  }
+	function person(name, age) {
+	this.name = name;  
+	this.age = age;
+	this.changeName = function (name) {
+		this.name = name;
+	}
+ }
 }
 
 var p = new person("David", 21);
 p.changeName("John");
+p.printFirstName("Jack")
+
+******************************************
+Description for methods via annotations:
+
+/**
+* This method prints first name
+* @param {string} firstName
+*/
+printFirstName(firstName){
+console.log(firstName)
+}
 
 ***********************************************************
 
@@ -484,6 +379,244 @@ values() - Returns an Iterator of values in the set.
 
 ***********************************************************
 
+Getters and Setters
+
+get and set - should be added before functions inside objects to get or set the value
+
+***********************************************************
+
+Try and Catch
+
+const person ={
+   firstName: 'John',
+   lastName: 'Smith',
+   set fullName(value){
+	if(typeof value !== 'string')
+	   throw new Error('Value is not a string')
+	   const parts=value.split(' ')
+	   if (parts.length !=2)
+			throw new Error ('Enter a first or last name!')
+	   this.firstName = parts[0];
+	   this.lastName = parts[1];
+   }
+}
+
+try {
+   person.fullName = null;
+} 
+catch (e) {
+alert(e)
+}
+console.log(person)
+
+**********************************************************
+
+PLAY AUDIO:
+
+function play() {
+  var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
+  audio.play();
+}
+
+**********************************************************
+
+STRING - remove/change letters in text:
+let string = "Javascript is awesome, isn't it?!";
+
+// Removing the comma
+let newString = string.replace(',', '');
+
+// Removing all 'o' characters
+let newString = string.replace(/o/g, '');
+
+// Removing all spaces
+let newString = string.split(' ').join('');
+
+// Removing the first 5 characters:
+let newString = string.slice(5);
+
+// Removing the last 3 characters from a string
+let newString = string.slice(0, -3);
+
+************************************************************
+
+TYPE SCRIPT
+
+ .ts files
+//////////////////
+ NEW CUSTOM TYPES:
+ 
+ type Customer = {firstName:string, age:number}
+ var firstCustomer: Customer ={
+ firstName: "John",
+ age: 25
+ }
+
+
+
+
+
+************************************************************
+
+PACKAGE.json
+
+npm init - to reate default package.json file
+
+dependencies / devDependencies - contain 3d party libraries
+
+**********************************************************
+
+Load project:
+
+1. git clone
+
+2. open project in VS Code 
+
+3. terminal -> npm install --force
+
+4. terminal -> npm start (App is loaded)
+
+5. terminal -> npm install cypress --save-dev
+
+6. Config cypress in the progect (cypress.config.js)
+
+7. terminal -> npx cypress open (Cypress is loaded)
+
+
+
+***********************************************************
+
+**********************CYPRESS******************************
+
+describe('Our First Suite', ()=>{
+
+    describe('Our suite section', () => {
+
+        beforeEach('code before each test', () =>{
+            //code
+        })
+
+        it('some test', ()=> {
+
+        })  
+    })
+
+    it('first test', ()=> {
+
+    })  
+})
+
+describe() / context() - every spec file starts with it, description what to test
+beforeEach() - preconditions for every test
+it() - test
+
+********************************************
+
+Set web elements / locators
+
+it('first test', ()=> {
+
+		//by Tag name
+        cy.get('input')
+        
+        //by ID
+        cy.get('#inputEmail')
+
+        //by Class name
+        cy.get('.input-full-width')
+
+        //by Class value
+        cy.get('[class="input-full-width size-medium shape-rectangle"]')
+
+        //by Attribute name
+        cy.get('[placeholder]')
+
+        //by Attribute name and value
+        cy.get('[placeholder="Email"]')
+
+        //by Tag name and Attribute with value
+        cy.get('input[placeholder="Email"]')
+
+        //by two different attributes
+        cy.get('[placeholder="Email"][fullwidth]')
+
+        //by tag name, Attribute with value, ID and Class name
+         cy.get('input[placeholder="Email"]#inputEmail.input-full-width')
+
+        //the most recommended way by Cypress (via added own attributes into the app)
+        cy.get('[data-cy="imputEmail1"]')
+		
+		// by contains 
+		cy.contains('[id=Email]','Form Layouts')
+		
+		//by children
+		cy.get('div[class="offset-sm-3 col-sm-9"').children('button[status="primary"]')
+        
+		//Gets the 2nd child in td column
+		cy.get("tr td:nth-child(2)")       
+		
+		//by parent	 
+		cy.get('button[status="primary"]').parent('div[class="offset-sm-3 col-sm-9"')
+		
+		//by find parent and to find button in that parent
+		cy.get('#inputEmail3').parents('form').find('button')
+		
+		//with assertion 
+		cy.get('#inputEmail3').parents('form').find('button').should('contain','Sign in')
+		
+		//traveling in DOM
+		cy.get('#inputEmail3')
+        .parents('form')
+        .find('button')
+        .should('contain','Sign in')
+        .parents('form')
+        .find('nb-checkbox')
+        .click()
+
+
+}) 
+
+*************************************************************
+
+Run test
+
+ it('first test', ()=> {
+        
+		//open the app via Cypress with root path of the app
+        cy.visit('/')                 
+		
+		// click at any element contains 'Forms'
+        cy.contains('Forms').click()      
+		
+		// click at any element contains 'Form Layouts'
+        cy.contains('Form Layouts').click()
+
+        //by Tag name
+        cy.get('input')
+		
+************************************************************
+
+//Then and Wrap methods:
+
+it.only('next test',() => {
+    cy.visit('/')
+    cy.contains('Forms').click();
+    cy.contains('Form Layouts').click()
+
+    cy.contains('nb-card','Using the Grid').then(firstForm => {
+        //JQuery format:
+        const emailLabelFirst = firstForm.find('[for="inputEmail1"]').text()
+        const passwordLabelFirst = firstForm.find('[for="inputPassword2"]').text()
+        expect(emailLabelFirst).to.equal('Email')
+        expect(passwordLabelFirst).to.equal('Password')
+
+        //wrap into CY
+        cy.wrap(firstForm).find('[for="inputEmail1"]').should('contain','Email')
+    })
+})
+
+*************************************************************
+
 Add custom commands for Cypress:
 
 //open commands.js file and add own command:
@@ -493,12 +626,6 @@ Cypress.Commands.add('openHomePage',()=>{
 
 //open needed js file and use this command:
 cy.openHomePage()
-
-***********************************************************
-
-Getters and Setters
-
-get and set - should be added before functions inside objects to get or set the value
 
 ***********************************************************
 
@@ -803,57 +930,48 @@ To apply custom path for snapshots add the following into the 'command.js' file:
 	})
 	
 	
-*******************************************************************
+***********************************************************
 
-Try and Catch
+**********************PLAYWRIGTH******************************
+Create new project:
 
-const person ={
-   firstName: 'John',
-   lastName: 'Smith',
-   set fullName(value){
-	if(typeof value !== 'string')
-	   throw new Error('Value is not a string')
-	   const parts=value.split(' ')
-	   if (parts.length !=2)
-			throw new Error ('Enter a first or last name!')
-	   this.firstName = parts[0];
-	   this.lastName = parts[1];
-   }
-}
+1. Create folder
+2. Open folder in VS code
+3. Open terminal and type npm init playwright@latest
 
-try {
-   person.fullName = null;
-} 
-catch (e) {
-alert(e)
-}
-console.log(person)
+*****************************************************
+CLI playwright:
 
-**********************************************************
+npx playwright test   - run tests
 
-PLAY AUDIO:
+npx playwright test example.spec.ts   - run specific spec test
 
-function play() {
-  var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
-  audio.play();
-}
+npx playwright test -g "has title"   - run specific test by name
 
-**********************************************************
+npx playwright show-report   - open report in HTML
 
-STRING - remove/change letters in text:
-let string = "Javascript is awesome, isn't it?!";
+npx playwright test --project=chromium   - headless mode test run
 
-// Removing the comma
-let newString = string.replace(',', '');
+npx playwright test --project=chromium --headed   - run in browser
 
-// Removing all 'o' characters
-let newString = string.replace(/o/g, '');
 
-// Removing all spaces
-let newString = string.split(' ').join('');
+npx playwright test --UI   - open UI window of playwright
 
-// Removing the first 5 characters:
-let newString = string.slice(5);
+******************************************************
 
-// Removing the last 3 characters from a string
-let newString = string.slice(0, -3);
+Playwrite test:
+
+import { test, expect } from '@playwright/test';
+
+test('has title', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle(/Playwright/);
+});
+
+test.only - run only this test
+
+test.skip - skip this test
+
+******************************************************
