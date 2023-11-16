@@ -954,6 +954,12 @@ npx playwright test --project=chromium   - headless mode test run
 
 npx playwright test --project=chromium --headed   - run in browser
 
+npx playwright test --project=chromium --trace on   - to show all steps in report the same as on UI
+
+npx playwright test --project=chromium --debug   - run test with debugging in the playwright inspector
+
+
+
 
 npx playwright test --UI   - open UI window of playwright
 
@@ -963,15 +969,80 @@ Playwrite test:
 
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
+test.describe('Test suit', ()=> {
+  test ('first test', async ({page})=>{
   await page.goto('https://playwright.dev/');
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
 });
+});
 
-test.only - run only this test
+test.beforeAll / afterAll - pre(/post)conditions once before all test
 
-test.skip - skip this test
+test.beforeEach / afterEach - pre(/post)conditions before each test
+
+test.describe - suite
+
+test.only() - run only this test
+
+test.skip() - skip this test
 
 ******************************************************
+
+	Locators - find element:
+
+		//by Tag name
+        page.locator('input')
+
+        //by ID
+        page.locator('#inputEmail')
+
+        //by Class value
+        page.locator('.shape-rectangle')
+
+        //by Attribute
+        page.locator('[placeholder="Email"]')
+
+        //by Full Class value
+        page.locator('[class="ng-tns-c140-2 ng-star-inserted"]')
+
+        //by combined selectors
+        page.locator('input[placeholder="Email"].shape-rectangle')
+
+        //by XPath - not recommended
+        page.locator('//*[@id="email"]')
+
+        //by partial text match
+        page.locator(':text("using)')
+
+        //by full text match
+        page.locator(':text-is("Using the grid)')
+		
+		//find 4th sibling (.nth({from 0...})) - try to avoid it
+		page.locator('nb-card').nth(3)
+		
+		
+	User-facing locators:
+		
+		//get by Role (not tag) see docs
+		page.getByRole('textbox',{name: "Email"}).first().click
+		page.getByRole('button',{name:"Sign in"})
+		
+		//get by Label tag and value
+		page.getByLabel('Email')
+		
+		//get by Placeholder tag and value
+		page.getByPlaceholder('Jane Doe')
+		
+		//get by Text
+		page.getByText('Using the grid')
+		
+		//get by Title attribute
+		page.getByText('Using the grid')
+		
+		//get by Test ID (add 'data-testid="Email"' in source code)
+		page.getByTestId('Email')
+		
+******************************************************************
+

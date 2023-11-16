@@ -40,6 +40,7 @@ describe('Run jinny script', () => {
     }
 
     function play() {
+        cy.wait(2000)
         var audio = new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-84577/zapsplat_emergency_siren_beep_warning_nuclear_meltdown_84854.mp3');
         audio.play();
     }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="2590.247" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2023-11-16T09:14:55" tests="0" file="cypress\tests\v2\ui\djinnyVacancies.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Run jinny script" timestamp="2023-11-16T09:14:55" tests="1" time="2590.242" failures="1">
+    <testcase name="Run jinny script run run run" time="0.000" classname="run run run">
+      <failure message="Timed out after waiting `10000ms` for your remote page to load.
+
+Your page did not fire its `load` event within `10000ms`.
+
+You can try increasing the `pageLoadTimeout` value in `AutoTests\RealWorldCypressTest\cypress.config.ts` to wait longer.
+
+Browsers will not fire the `load` event until all stylesheets and scripts are done downloading.
+
+When this `load` event occurs, Cypress will continue running commands." type="CypressError"><![CDATA[CypressError: Timed out after waiting `10000ms` for your remote page to load.
+
+Your page did not fire its `load` event within `10000ms`.
+
+You can try increasing the `pageLoadTimeout` value in `AutoTests\RealWorldCypressTest\cypress.config.ts` to wait longer.
+
+Browsers will not fire the `load` event until all stylesheets and scripts are done downloading.
+
+When this `load` event occurs, Cypress will continue running commands.
+    at timedOutWaitingForPageLoad (https://djinni.co/__cypress/runner/cypress_runner.js:130247:64)
+    at <unknown> (https://djinni.co/__cypress/runner/cypress_runner.js:131221:16)
+    at tryCatcher (https://djinni.co/__cypress/runner/cypress_runner.js:1807:23)
+    at <unknown> (https://djinni.co/__cypress/runner/cypress_runner.js:4186:41)
+    at tryCatcher (https://djinni.co/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (https://djinni.co/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (https://djinni.co/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (https://djinni.co/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (https://djinni.co/__cypress/runner/cypress_runner.js:1697:18)
+    at _drainQueueStep (https://djinni.co/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (https://djinni.co/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (https://djinni.co/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (https://djinni.co/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at checkNewVacancy (webpack://cypress-realworld-app/./cypress/tests/v2/ui/djinnyVacancies.ts:20:11)
+    at Context.eval (webpack://cypress-realworld-app/./cypress/tests/v2/ui/djinnyVacancies.ts:36:28)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
