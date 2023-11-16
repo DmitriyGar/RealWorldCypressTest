@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="2679.254" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2023-11-15T10:01:14" tests="0" file="cypress\tests\v2\ui\djinnyVacancies.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Run jinny script" timestamp="2023-11-15T10:01:14" tests="1" time="0.000" failures="0">
+  </testsuite>
+</testsuites>

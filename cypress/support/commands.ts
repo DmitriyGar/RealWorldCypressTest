@@ -4,6 +4,7 @@
 import { pick } from "lodash/fp";
 import { format as formatDate } from "date-fns";
 import { isMobile } from "./utils";
+import testData from "../support/testData/testDataExistingUser.json"
 
 // Import Cypress Percy plugin command (https://docs.percy.io/docs/cypress)
 import "@percy/cypress";
@@ -364,15 +365,15 @@ Cypress.Commands.add("loginByGoogleApi", () => {
   });
 });
 
-Cypress.Commands.add("loginByApi", () => {
-  cy.log("Logging in as Katharina via API")
+Cypress.Commands.add("loginByApi", (username:string='Katharina_Bernier',password:string='s3cret') => {
+  cy.log(`Logging in as ${username} via API`)
   const creds = {
     "type": "LOGIN",
-    "username": "Katharina_Bernier",
-    "password": "s3cret"
+    "username": `${username}`,
+    "password": `${password}`
   }
   cy.request('POST', 'http://localhost:3001/login', creds).its('body').then(body => {
-   const auth = `{"actions":[{"type":"xstate.stop","activity":{"src":{"type":"performLogin"},"id":"authentication.loading:invocation[0]","type":"xstate.invoke"}},{"type":"redirectHomeAfterLogin"}],"activities":{"authentication.loading:invocation[0]":false,"authentication.logout:invocation[0]":false},"meta":{},"events":[],"value":"authorized","context":{"user":{"id":"${body.user.id}","uuid":"${body.user.uuid}","firstName":"${body.user.firstname}","lastName":"${body.user.lastname}","username":"${body.user.username}","password":"${body.user.password}","email":"${body.user.email}","phoneNumber":"${body.user.phonenumber}","avatar":"${body.user.avatar}","defaultPrivacyLevel":"${body.user.defaultPrivacyLevel}","balance":${body.user.balance},"createdAt":"${body.user.createdAt}","modifiedAt":"${body.user.modifiedAt}"}},"_event":{"name":"done.invoke.authentication.loading:invocation[0]","data":{"type":"done.invoke.authentication.loading:invocation[0]","data":{"user":{"id":"t45AiwidW","uuid":"6383f84e-b511-44c5-a835-3ece1d781fa8","firstName":"Edgar","lastName":"Johns","username":"Katharina_Bernier","password":"$2a$10$5PXHGtcsckWtAprT5/JmluhR13f16BL8SIGhvAKNP.Dhxkt69FfzW","email":"Norene39@yahoo.com","phoneNumber":"625-316-9882","avatar":"https://cypress-realworld-app-svgs.s3.amazonaws.com/t45AiwidW.svg","defaultPrivacyLevel":"public","balance":168137,"createdAt":"2019-08-27T23:47:05.637Z","modifiedAt":"2020-05-21T11:02:22.857Z"}}},"$$type":"scxml","type":"external","origin":"authentication.loading:invocation[0]"},"_sessionid":"x:0","event":{"type":"done.invoke.authentication.loading:invocation[0]","data":{"user":{"id":"t45AiwidW","uuid":"6383f84e-b511-44c5-a835-3ece1d781fa8","firstName":"Edgar","lastName":"Johns","username":"Katharina_Bernier","password":"$2a$10$5PXHGtcsckWtAprT5/JmluhR13f16BL8SIGhvAKNP.Dhxkt69FfzW","email":"Norene39@yahoo.com","phoneNumber":"625-316-9882","avatar":"https://cypress-realworld-app-svgs.s3.amazonaws.com/t45AiwidW.svg","defaultPrivacyLevel":"public","balance":168137,"createdAt":"2019-08-27T23:47:05.637Z","modifiedAt":"2020-05-21T11:02:22.857Z"}}},"historyValue":{"current":"authorized","states":{}},"history":{"actions":[{"type":"xstate.start","activity":{"src":{"type":"performLogin"},"id":"authentication.loading:invocation[0]","type":"xstate.invoke"}}],"activities":{"authentication.loading:invocation[0]":{"type":"xstate.start","activity":{"src":{"type":"performLogin"},"id":"authentication.loading:invocation[0]","type":"xstate.invoke"}},"authentication.logout:invocation[0]":false},"meta":{},"events":[],"value":"loading","context":{},"_event":{"name":"LOGIN","data":{"type":"LOGIN","username":"Katharina_Bernier","password":"s3cret"},"$$type":"scxml","type":"external"},"_sessionid":"x:0","event":{"type":"LOGIN","username":"Katharina_Bernier","password":"s3cret"},"historyValue":{"current":"loading","states":{}},"children":{},"done":false,"changed":true,"tags":[]},"children":{},"done":false,"changed":true,"tags":[]}`
+   const auth:string = `{"actions":[{"type":"xstate.stop","activity":{"src":{"type":"performLogin"},"id":"authentication.loading:invocation[0]","type":"xstate.invoke"}},{"type":"redirectHomeAfterLogin"}],"activities":{"authentication.loading:invocation[0]":false,"authentication.logout:invocation[0]":false},"meta":{},"events":[],"value":"authorized","context":{"user":{"id":"${body.user.id}","uuid":"${body.user.uuid}","firstName":"${body.user.firstname}","lastName":"${body.user.lastname}","username":"${body.user.username}","password":"${body.user.password}","email":"${body.user.email}","phoneNumber":"${body.user.phonenumber}","avatar":"${body.user.avatar}","defaultPrivacyLevel":"${body.user.defaultPrivacyLevel}","balance":${body.user.balance},"createdAt":"${body.user.createdAt}","modifiedAt":"${body.user.modifiedAt}"}},"_event":{"name":"done.invoke.authentication.loading:invocation[0]","data":{"type":"done.invoke.authentication.loading:invocation[0]","data":{"user":{"id":"t45AiwidW","uuid":"6383f84e-b511-44c5-a835-3ece1d781fa8","firstName":"Edgar","lastName":"Johns","username":"Katharina_Bernier","password":"$2a$10$5PXHGtcsckWtAprT5/JmluhR13f16BL8SIGhvAKNP.Dhxkt69FfzW","email":"Norene39@yahoo.com","phoneNumber":"625-316-9882","avatar":"https://cypress-realworld-app-svgs.s3.amazonaws.com/t45AiwidW.svg","defaultPrivacyLevel":"public","balance":168137,"createdAt":"2019-08-27T23:47:05.637Z","modifiedAt":"2020-05-21T11:02:22.857Z"}}},"$$type":"scxml","type":"external","origin":"authentication.loading:invocation[0]"},"_sessionid":"x:0","event":{"type":"done.invoke.authentication.loading:invocation[0]","data":{"user":{"id":"t45AiwidW","uuid":"6383f84e-b511-44c5-a835-3ece1d781fa8","firstName":"Edgar","lastName":"Johns","username":"Katharina_Bernier","password":"$2a$10$5PXHGtcsckWtAprT5/JmluhR13f16BL8SIGhvAKNP.Dhxkt69FfzW","email":"Norene39@yahoo.com","phoneNumber":"625-316-9882","avatar":"https://cypress-realworld-app-svgs.s3.amazonaws.com/t45AiwidW.svg","defaultPrivacyLevel":"public","balance":168137,"createdAt":"2019-08-27T23:47:05.637Z","modifiedAt":"2020-05-21T11:02:22.857Z"}}},"historyValue":{"current":"authorized","states":{}},"history":{"actions":[{"type":"xstate.start","activity":{"src":{"type":"performLogin"},"id":"authentication.loading:invocation[0]","type":"xstate.invoke"}}],"activities":{"authentication.loading:invocation[0]":{"type":"xstate.start","activity":{"src":{"type":"performLogin"},"id":"authentication.loading:invocation[0]","type":"xstate.invoke"}},"authentication.logout:invocation[0]":false},"meta":{},"events":[],"value":"loading","context":{},"_event":{"name":"LOGIN","data":{"type":"LOGIN","username":"Katharina_Bernier","password":"s3cret"},"$$type":"scxml","type":"external"},"_sessionid":"x:0","event":{"type":"LOGIN","username":"Katharina_Bernier","password":"s3cret"},"historyValue":{"current":"loading","states":{}},"children":{},"done":false,"changed":true,"tags":[]},"children":{},"done":false,"changed":true,"tags":[]}`
    
     cy.visit('/', {
       onBeforeLoad(win) {
@@ -382,11 +383,20 @@ Cypress.Commands.add("loginByApi", () => {
   })
 })
 
-Cypress.Commands.add("login", () => {
-  cy.log("Logging in as Katharina")
-  cy.get('#username').click().type('Katharina_Bernier')
-  cy.get('#password').click().type('s3cret')
+Cypress.Commands.add("loginUI", (username:string=testData.userName, password:string=testData.password) => {
+  cy.log(`Logging in as ${username}`)
+  cy.get('#username').click().type(username)
+  cy.get('#password').click().type(password)
   cy.contains('.MuiButton-label', 'Sign In').click()
-  cy.get('[data-test="sidenav-username"]').should('contain', 'Katharina_Bernier')
+  cy.get('[data-test="sidenav-username"]').should('contain', username).then( check =>{
+    expect(localStorage.getItem('authState')).to.contain('\"value\":\"authorized\"')
 
 })
+
+})
+
+import {addMatchImageSnapshotCommand} from '@simonsmith/cypress-image-snapshot/command';
+
+  addMatchImageSnapshotCommand({
+    customSnapshotsDir: `/cypress/e2e/snapshots/${Cypress.spec.name}`
+    })

@@ -2,12 +2,13 @@
   "name": "cypress-realworld-app",
   "version": "1.0.0",
   "description": "A payment application to demonstrate **real-world** usage of Cypress testing methods, patterns, and workflows. For a full reference of our documentation, go to https://docs.cypress.io",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/cypress-io/cypress-realworld-app.git"
   },
-  "author": "Cypress DX Team",
-  "license": "MIT",
+  "author": "Dmytro H",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/cypress-io/cypress-realworld-app/issues"
   },
@@ -38,6 +39,7 @@
     "history": "4.10.1",
     "mochawesome-merge": "^4.3.0",
     "mochawesome-report-generator": "^6.2.0",
+    "ra-data-graphql": "^4.14.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-google-login": "5.2.2",
@@ -49,6 +51,7 @@
     "shortid": "2.2.16",
     "uuid": "8.3.2",
     "xstate": "4.31.0",
+    "yarn": "^1.22.19",
     "yup": "0.32.11"
   },
   "devDependencies": {
@@ -56,6 +59,7 @@
     "@cypress/instrument-cra": "1.4.0",
     "@faker-js/faker": "6.1.2",
     "@percy/cypress": "2.3.4",
+    "@simonsmith/cypress-image-snapshot": "^9.0.1",
     "@types/bcryptjs": "2.4.2",
     "@types/bluebird": "3.5.36",
     "@types/connect-flash": "0.0.37",
@@ -93,9 +97,10 @@
     "concurrently": "7.1.0",
     "cors": "2.8.5",
     "cross-env": "7.0.3",
-    "cypress": "13.1.0",
+    "cypress": "^13.3.1",
     "cypress-mochawesome-reporter": "^3.6.0",
     "cypress-multi-reporters": "^1.6.3",
+    "cypress-terminal-report": "^5.3.9",
     "dotenv": "16.0.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-cypress": "2.12.1",
@@ -107,7 +112,7 @@
     "express-session": "1.17.2",
     "express-validator": "6.14.0",
     "fuse.js": "6.5.3",
-    "graphql": "16.4.0",
+    "graphql": "^16.8.1",
     "graphql-tools": "8.2.7",
     "husky": "7.0.4",
     "istanbul-lib-coverage": "3.2.0",
@@ -133,6 +138,8 @@
     "@types/express-serve-static-core": "4.17.2"
   },
   "scripts": {
+    "RunTCOnChrome": "cypress run --browser chrome",
+    "RunTCOnElectron": "cypress run --browser electron",
     "dev": "cross-env NODE_ENV=development concurrently yarn:start:react yarn:start:api:watch",
     "dev:auth0": "cross-env REACT_APP_AUTH0=true NODE_ENV=development concurrently yarn:start:react yarn:start:api:watch",
     "dev:okta": "cross-env REACT_APP_OKTA=true NODE_ENV=development concurrently yarn:start:react yarn:start:api:watch",
@@ -152,12 +159,11 @@
     "list:dev:users": "cat data/database.json | json -a users | json -a id username",
     "types": "tsc --noEmit",
     "precypress:open": "yarn predev:cognito:ci",
-    
     "cypress:open": "cypress open",
     "cypress:open:mobile": "cypress open --config viewportWidth=375,viewportHeight=667",
     "cypress:run": "npm run prereport && cypress run",
     "cypress:run:mobile": "cypress run --config viewportWidth=375,viewportHeight=667",
-    "cypress:test":"cypress run --spec \"cypress/tests/v2/api/*\"",
+    "cypress:test": "cypress run --spec \"cypress/tests/v2/api/*\"",
     "cypress:e2e": "npm run delete:reports && npm run cypress:test && npm run cypress:report",
     "cypress:report": "npm run junit:merge && npm run mochawesome:merge",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/mochawesome/*.json\" > mochawesome.json && npx marge mochawesome.json",

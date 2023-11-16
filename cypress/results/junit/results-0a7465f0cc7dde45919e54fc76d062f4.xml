@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="479.748" tests="1" failures="1">
+  <testsuite name="Root Suite" timestamp="2023-11-15T14:05:39" tests="0" file="cypress\tests\v2\ui\djinnyVacancies.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Run jinny script" timestamp="2023-11-15T14:05:39" tests="1" time="479.735" failures="1">
+    <testcase name="Run jinny script run run run" time="0.000" classname="run run run">
+      <failure message="`cy.visit()` failed trying to load:
+
+https://djinni.co/jobs/?primary_keyword=QA&amp;region=UKR&amp;salary=2500
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  &gt; Error: getaddrinfo ENOTFOUND djinni.co
+
+Common situations why this would fail:
+  - you don&apos;t have internet access
+  - you forgot to run / boot your web server
+  - your web server isn&apos;t accessible
+  - you have weird network configuration settings on your computer" type="CypressError"><![CDATA[CypressError: `cy.visit()` failed trying to load:
+
+https://djinni.co/jobs/?primary_keyword=QA&region=UKR&salary=2500
+
+We attempted to make an http request to this URL but the request failed without a response.
+
+We received this error at the network level:
+
+  > Error: getaddrinfo ENOTFOUND djinni.co
+
+Common situations why this would fail:
+  - you don't have internet access
+  - you forgot to run / boot your web server
+  - your web server isn't accessible
+  - you have weird network configuration settings on your computer
+    at <unknown> (https://djinni.co/__cypress/runner/cypress_runner.js:131204:74)
+    at visitFailedByErr (https://djinni.co/__cypress/runner/cypress_runner.js:130596:12)
+    at <unknown> (https://djinni.co/__cypress/runner/cypress_runner.js:131203:11)
+    at tryCatcher (https://djinni.co/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (https://djinni.co/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (https://djinni.co/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (https://djinni.co/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (https://djinni.co/__cypress/runner/cypress_runner.js:1697:18)
+    at _drainQueueStep (https://djinni.co/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (https://djinni.co/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (https://djinni.co/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (https://djinni.co/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at checkNewVacancy (webpack://cypress-realworld-app/./cypress/tests/v2/ui/djinnyVacancies.ts:20:11)
+    at Context.eval (webpack://cypress-realworld-app/./cypress/tests/v2/ui/djinnyVacancies.ts:36:28)
+
+From Node.js Internals:
+  Error: getaddrinfo ENOTFOUND djinni.co
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
