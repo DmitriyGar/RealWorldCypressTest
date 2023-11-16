@@ -1,9 +1,9 @@
-import { Pages } from "../../../support/pageObjects/Pages"
-import { negativeOrPositiveAmountWrapper } from "../../../support/helpers/HelpMethods";
-import testData from "../../../support/testData/testDataNewUser.json"
-import { ApiObjectBase } from "../../../support/apiObjects/apiObjectBase"
-import * as apiHelpers from "../../../support/helpers/v2/api/apiHelpers"
-import * as helpers from "../../../support/helpers/v2/ui/verifyHomePage.helper"
+import { Pages } from "../../support/pageObjects/Pages"
+import { negativeOrPositiveAmountWrapper } from "../../support/helpers/HelpMethods";
+import testData from "../../support/testData/testDataNewUser.json"
+import { ApiObjectBase } from "../../support/apiObjects/apiObjectBase"
+import * as apiHelpers from "../../support/helpers/v2/api/apiHelpers"
+import * as helpers from "../../support/helpers/v2/ui/verifyHomePage.helper"
 
 
 let pages = new Pages();

@@ -1,6 +1,6 @@
-import { Pages } from "../../../support/pageObjects/Pages";
-import { ApiObjectBase } from "../../../support/apiObjects/apiObjectBase";
-import testData from "../../../support/testData/testDataExistingUser.json"
+import { Pages } from "../../support/pageObjects/Pages";
+import { ApiObjectBase } from "../../support/apiObjects/apiObjectBase";
+import testData from "../../support/testData/testDataExistingUser.json"
 
 
 let pages = new Pages();

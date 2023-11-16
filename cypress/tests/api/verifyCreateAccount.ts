@@ -1,6 +1,6 @@
 import { id } from "date-fns/locale";
-import { ApiObjectBase } from "../../../support/apiObjects/apiObjectBase"
-import testData from "../../../support/testData/testDataNewUser.json"
+import { ApiObjectBase } from "../../support/apiObjects/apiObjectBase"
+import testData from "../../support/testData/testDataNewUser.json"
 
 describe('Create account via API', () => {
     let apiObjectBase = new ApiObjectBase();

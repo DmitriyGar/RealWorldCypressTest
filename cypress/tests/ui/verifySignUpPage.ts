@@ -1,5 +1,5 @@
-import { Pages } from "../../../support/pageObjects/Pages"
-import testData from "../../../support/testData/testDataNewUser.json"
+import { Pages } from "../../support/pageObjects/Pages"
+import testData from "../../support/testData/testDataNewUser.json"
 
 
 let pages = new Pages();

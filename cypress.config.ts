@@ -32,8 +32,9 @@ export default defineConfig({
     defaultCommandTimeout: 5000,
     responseTimeout: 50000,
     pageLoadTimeout: 10000,
-    //baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:3000',
 	  supportFile: 'cypress/support/index.js',
-    specPattern: 'cypress/tests/v2/**/*.{js,jsx,ts,tsx}',
+    excludeSpecPattern: 'cypress/tests/*Old/*.{js,jsx,ts,tsx}',
+    specPattern: 'cypress/tests/**/*.{js,jsx,ts,tsx}',
   },
 })

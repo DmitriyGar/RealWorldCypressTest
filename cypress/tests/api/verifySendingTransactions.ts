@@ -1,7 +1,7 @@
-import { ApiObjectBase } from "../../../support/apiObjects/apiObjectBase"
-import testData from "../../../support/testData/testDataNewUser.json"
-import * as apiHelpers from "../../../support/helpers/v2/api/apiHelpers"
-import * as helpers from "../../../support/helpers/v2/ui/verifyHomePage.helper"
+import { ApiObjectBase } from "../../support/apiObjects/apiObjectBase"
+import testData from "../../support/testData/testDataNewUser.json"
+import * as apiHelpers from "../../support/helpers/v2/api/apiHelpers"
+import * as helpers from "../../support/helpers/v2/ui/verifyHomePage.helper"
 
 describe('Create account via API', () => {
     let apiObjectBase = new ApiObjectBase();
